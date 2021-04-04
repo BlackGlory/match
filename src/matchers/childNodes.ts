@@ -1,5 +1,7 @@
 import { INestedMatcher, IMatcher, IReadonlyContext } from '@src/types'
-import { matchOneByOne } from '@src/match-one-by-one'
+import { matchOneByOne } from '@utils/match-one-by-one'
+import { merge } from '@utils/merge'
+import { nextSibling } from 'extra-dom'
 
 export function childNodes(...matchers: Array<IMatcher<Node>>): INestedMatcher<Node> {
   return function (this: IReadonlyContext<Node>, node: Node) {
@@ -10,11 +12,22 @@ export function childNodes(...matchers: Array<IMatcher<Node>>): INestedMatcher<N
       return false
     }
 
-    return matchOneByOne(
-      this
+    const context: IReadonlyContext<Node> = {
+      ...this
+    , collection: {}
+    , next: nextSibling
+    }
+
+    const result = matchOneByOne(
+      context
     , node.childNodes[0]
-    , (node: Node) => node.nextSibling
     , ...matchers
     )
+
+    if (result) {
+      merge(this.collection, context.collection)
+    }
+
+    return result
   }
 }

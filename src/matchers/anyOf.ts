@@ -1,10 +1,13 @@
-import { IMatcher, INestedMatcher, IReadonlyContext } from '@src/types'
-import { _match } from '@src/_match'
+import { ITerminalMatcher, INestedMatcher, IReadonlyContext } from '@src/types'
 
 export function anyOf<T extends Node>(
-  ...matchers: [IMatcher<T>, IMatcher<T>, ...Array<IMatcher<T>>]
+  ...matchers: [
+    INestedMatcher<T> | ITerminalMatcher<T>
+  , INestedMatcher<T> | ITerminalMatcher<T>
+  , ...Array<INestedMatcher<T> | ITerminalMatcher<T>>
+  ]
 ): INestedMatcher<T> {
   return function (this: IReadonlyContext<T>, node: T) {
-    return matchers.some(match => _match.call(this, node, match))
+    return matchers.some(match => match.call(this, node))
   }
 }

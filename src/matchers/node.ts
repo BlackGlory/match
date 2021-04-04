@@ -1,21 +1,25 @@
-import { INestedMatcher, IMatcher, IReadonlyContext } from '@src/types'
-import { CollectMatcher } from './collect'
+import { INestedMatcher, ITerminalMatcher, IReadonlyContext } from '@src/types'
 import { isString } from '@blackglory/types'
 import { concat } from '@utils/concat'
+import { merge } from '@utils/merge'
 
-export function node(strings: TemplateStringsArray, ...values: string[]):
-  (...matchers: Array<IMatcher<Node>>) => CollectMatcher<Node>
-export function node(name: string):
-  (...matchers: Array<IMatcher<Node>>) => CollectMatcher<Node>
-export function node(name: string, ...matchers: Array<IMatcher<Node>>):
-  CollectMatcher<Node>
-export function node(...matchers: Array<IMatcher<Element>>):
-  INestedMatcher<Node>
+export function node(
+  strings: TemplateStringsArray
+, ...values: string[]
+): (...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>) => INestedMatcher<Node>
+export function node(name: string): (...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>) => INestedMatcher<Node>
+export function node(
+  name: string
+, ...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>
+): INestedMatcher<Node>
+export function node(
+  ...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>
+): INestedMatcher<Node>
 export function node(...args:
 | [strings: TemplateStringsArray, ...values: string[]]
 | [name: string]
-| [name: string, ...matchers: Array<IMatcher<Element>>]
-| [...matchers: Array<IMatcher<Element>>]
+| [name: string, ...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>]
+| [...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>]
 ) {
   if (Array.isArray(args[0])) {
     const [strings, ...values] =
@@ -28,17 +32,24 @@ export function node(...args:
   if (isString(args[0]) && args.length === 1) {
     const [name] = args as [name: string]
 
-    return (...matchers: Array<IMatcher<Node>>) => node(name, ...matchers)
+    return (...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>) =>
+      node(name, ...matchers)
   }
 
   if (isString(args[0]) && args.length > 1) {
     const [name, ...matchers] =
-      args as [name: string, ...matchers: Array<IMatcher<Node>>]
+      args as [name: string, ...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>]
 
-    return new CollectMatcher<Element>(name, node(...matchers))
+    return function (this: IReadonlyContext<Node>, _node: Node) {
+      const result = node(...matchers).call(this, _node)
+      if (result) {
+        merge(this.collection, { [name]: _node })
+      }
+      return result
+    }
   }
 
-  const [...matchers] = args as [...matchers: Array<IMatcher<Node>>]
+  const [...matchers] = args as [...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>]
 
   return function (this: IReadonlyContext<Node>, node: Node) {
     if (matchers.length === 0) return true

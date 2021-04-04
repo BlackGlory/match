@@ -1,7 +1,7 @@
 {
-  "name": "@blackglory/query",
-  "version": "0.3.13",
-  "description": "A module for querying elements from pages",
+  "name": "@blackglory/match",
+  "version": "0.1.0",
+  "description": "A module for matching nodes from pages",
   "keywords": [
     "query",
     "css",
@@ -13,7 +13,7 @@
   ],
   "main": "lib/es2018/index.js",
   "types": "lib/es2018/index.d.ts",
-  "repository": "git@github.com:BlackGlory/query.git",
+  "repository": "git@github.com:BlackGlory/match.git",
   "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
   "license": "MIT",
   "scripts": {
@@ -70,9 +70,8 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "@blackglory/errors": "^1.1.2",
     "@blackglory/query": "^0.4.2",
-    "@blackglory/types": "^0.4.1",
+    "@blackglory/types": "^0.4.2",
     "extra-dom": "^0.2.26",
     "extra-generator": "^0.2.1"
   }

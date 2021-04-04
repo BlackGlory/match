@@ -5,12 +5,12 @@ import { concat } from '@utils/concat'
 
 export function xpath(
   this: IDocumentContext<Node>
-, experssion: string
+, strings: TemplateStringsArray
+, ...values: string[]
 ): ITerminalMatcher<Node>
 export function xpath(
   this: IDocumentContext<Node>
-, strings: TemplateStringsArray
-, ...values: string[]
+, experssion: string
 ): ITerminalMatcher<Node>
 export function xpath(
   this: IDocumentContext<Node>

@@ -13,9 +13,9 @@ yarn add @blackglory/match
 ## Usage
 
 ```ts
-import { match, text, element, css, includesText, optional } from '@blackglory/query'
+import { match, text, element, css, includesText, optional } from '@blackglory/match'
 
-const nodes = match(
+const nodes = match(root
   textNode(
     includeText('Reply to')
   )
@@ -23,7 +23,7 @@ const nodes = match(
     css`[title*="打开链接"]`
   , textContentIncludes('+')
   )
-, element`the element`(
+, element`target`(
     css`[title*="快速浏览"]`
   , textContentIncludes('R')
   , children(
@@ -37,9 +37,8 @@ const nodes = match(
   )
 , textNode(
     css`a`
-  , includeText(/\(\d{4}-\d{2}-\d{2} \d{2}:\d{2}\)/)
+  , textContentMatches(/\(\d{4}-\d{2}-\d{2} \d{2}:\d{2}\)/)
   )
-  // multiple需要处理范围内的每一种情况
 , multiple([2, 10], element())
 , optional(
     element(
@@ -51,14 +50,181 @@ const nodes = match(
 
 ## API
 
+```ts
+type IMatcher<T extends Node> =
+| ITerminalMatcher<T>
+| INestedMatcher<T>
+| ISkipMatcher<T>
+
+type ITerminalMatcher<T extends Node> = (
+  this: IDocumentContext<T>
+, node: T
+) => boolean
+
+type INestedMatcher<T extends Node> = (
+  this: IReadonlyContext<T>
+, node: T
+) => boolean
+
+type ISkipMatcher<T extends Node> = (
+  this: IReadonlyContext<T>
+, node: T
+) => number
+```
+
 ### match
 
 ```ts
-function match<T extends Node>(
+function match(
   this: void | Document
-, cursor: Node
-, ...matchers: [IMatcher<T>, ...Array<IMatcher<T>>]
-): T[]
+, node: Node
+, ...matchers: Array<IMatcher<Node>>
+): { [name: string]: Node | Node[] } | null
+```
+
+### matchElement
+
+```ts
+function matchElement(
+  this: void | Document
+, element: Element
+, ...matchers: Array<IMatcher<Element>>
+): { [name: string]: Element | Element[] } | null
 ```
 
 ### Matchers
+
+#### anyOf
+
+```ts
+function anyOf<T extends Node>(
+  ...matchers: [
+    INestedMatcher<T> | ITerminalMatcher<T>
+  , INestedMatcher<T> | ITerminalMatcher<T>
+  , ...Array<INestedMatcher<T> | ITerminalMatcher<T>>
+  ]
+): INestedMatcher<T>
+```
+
+#### childNodes
+
+```ts
+function childNodes(...matchers: Array<IMatcher<Node>>): INestedMatcher<Node>
+```
+
+#### children
+
+```ts
+function children(...matchers: Array<IMatcher<Element>>): INestedMatcher<Element>
+```
+
+#### css
+
+```ts
+function css(strings: TemplateStringsArray, ...values: string[]): ITerminalMatcher<Element>
+function css(selector: string): ITerminalMatcher<Element>
+```
+
+#### element
+
+```ts
+function element(
+  strings: TemplateStringsArray
+, ...values: string[]
+): (...matchers: Array<INestedMatcher<Element> | ITerminalMatcher<Element>>) => INestedMatcher<Node>
+function element(name: string):
+  (...matchers: Array<INestedMatcher<Element>>) => INestedMatcher<Node>
+function element(name: string, ...matchers: Array<INestedMatcher<Element>>):
+  INestedMatcher<Node>
+function element(...matchers: Array<INestedMatcher<Element>>):
+  INestedMatcher<Node>
+```
+
+#### multiple
+
+```ts
+function multiple<T extends Node>(
+  number: number
+, matcher: INestedMatcher<T> | ITerminalMatcher<T>
+): ISkipMatcher<T>
+function multiple<T extends Node>(
+  range: [min: number, max: number]
+, matcher: INestedMatcher<T> | ITerminalMatcher<T>
+, options?:  IMultipleOptions
+): ISkipMatcher<T>
+```
+
+#### node
+
+```ts
+function node(
+  strings: TemplateStringsArray
+, ...values: string[]
+): (...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>) => INestedMatcher<Node>
+function node(name: string): (...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>) => INestedMatcher<Node>
+function node(
+  name: string
+, ...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>
+): INestedMatcher<Node>
+function node(
+  ...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>
+): INestedMatcher<Node>
+```
+
+#### optional
+
+```ts
+function optional<T extends Node>(
+  matcher: INestedMatcher<T> | ITerminalMatcher<T>
+, options?: IOptionalOptions
+): ISkipMatcher<T>
+```
+
+#### textContentEquals
+
+```ts
+function textContentEquals(text: string): ITerminalMatcher<Node>
+```
+
+#### textContentIncludes
+
+```ts
+function textContentIncludes(searchString: string): ITerminalMatcher<Node>
+```
+
+#### textContentMatches
+
+```ts
+function textContentMatches(pattern: RegExp): ITerminalMatcher<Node>
+```
+
+#### textNode
+
+```ts
+function textNode(
+  strings: TemplateStringsArray
+, ...values: string[]
+): (...matchers: Array<ITerminalMatcher<Node>>) => INestedMatcher<Node>
+function textNode(name: string): (...matchers: Array<ITerminalMatcher<Node>>) => INestedMatcher<Node>
+function textNode(
+  name: string
+, ...matchers: Array<ITerminalMatcher<Node>>
+): INestedMatcher<Node>
+function textNode(
+  ...matchers: Array<ITerminalMatcher<Element>>
+): INestedMatcher<Node>
+```
+
+#### xpath
+
+```ts
+function xpath(
+  this: IDocumentContext<Node>
+, strings: TemplateStringsArray
+, ...values: string[]
+): ITerminalMatcher<Node>
+function xpath(
+  this: IDocumentContext<Node>
+, experssion: string
+): ITerminalMatcher<Node>
+```

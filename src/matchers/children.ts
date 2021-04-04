@@ -1,5 +1,6 @@
 import { IMatcher, INestedMatcher, IReadonlyContext } from '@src/types'
-import { matchOneByOne } from '@src/match-one-by-one'
+import { matchOneByOne } from '@utils/match-one-by-one'
+import { merge } from '@utils/merge'
 
 export function children(
   ...matchers: Array<IMatcher<Element>>
@@ -12,11 +13,26 @@ export function children(
       return false
     }
 
-    return matchOneByOne(
-      this
+    const context: IReadonlyContext<Element> = {
+      ...this
+    , collection: {}
+    , next
+    }
+
+    const result = matchOneByOne(
+      context
     , element.children[0]
-    , (element: Element) => element.nextElementSibling
     , ...matchers
     )
+
+    if (result) {
+      merge(this.collection, context.collection)
+    }
+
+    return result
   }
+}
+
+function next(element: Element): Element | null {
+  return element.nextElementSibling
 }

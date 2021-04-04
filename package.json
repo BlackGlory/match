@@ -70,7 +70,7 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
-    "@blackglory/query": "^0.4.2",
+    "@blackglory/errors": "^1.1.2",
     "@blackglory/types": "^0.4.2",
     "extra-dom": "^0.2.26",
     "extra-generator": "^0.2.1"

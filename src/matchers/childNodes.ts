@@ -4,7 +4,7 @@ import { merge } from '@utils/merge'
 import { nextSibling } from 'extra-dom'
 
 export function childNodes(...matchers: Array<IMatcher<Node>>): INestedMatcher<Node> {
-  return function (this: IReadonlyContext<Node>, node: Node) {
+  return function (this: IReadonlyContext, node: Node) {
     if (node.childNodes.length === 0) {
       // 空matchers意味着"childNodes应该为空".
       if (matchers.length === 0) return true
@@ -12,7 +12,7 @@ export function childNodes(...matchers: Array<IMatcher<Node>>): INestedMatcher<N
       return false
     }
 
-    const context: IReadonlyContext<Node> = {
+    const context: IReadonlyContext = {
       ...this
     , collection: {}
     , next: nextSibling

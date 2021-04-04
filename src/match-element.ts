@@ -9,14 +9,14 @@ export function matchElement(
 , ...matchers: Array<IMatcher<Element>>
 ): { [name: string]: Element | Element[] } | null {
   const document = isDocument(this) ? this : globalThis.document
-  const context: IContext<Element> = {
+  const context: IContext = {
     document
   , collection: {}
   , next: nextElementSibling
   }
 
   if (matchOneByOne(context, element, ...matchers)) {
-    return context.collection
+    return context.collection as { [name: string]: Element | Element[] }
   } else {
     return null
   }

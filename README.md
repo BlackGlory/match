@@ -57,7 +57,7 @@ type IMatcher<T extends Node> =
 | ISkipMatcher<T>
 
 type ITerminalMatcher<T extends Node> = (
-  this: IDocumentContext<T>
+  this: IReadonlyContext<T>
 , node: T
 ) => boolean
 
@@ -132,8 +132,6 @@ function element(
   strings: TemplateStringsArray
 , ...values: string[]
 ): (...matchers: Array<INestedMatcher<Element> | ITerminalMatcher<Element>>) => INestedMatcher<Node>
-function element(name: string):
-  (...matchers: Array<INestedMatcher<Element>>) => INestedMatcher<Node>
 function element(name: string, ...matchers: Array<INestedMatcher<Element>>):
   INestedMatcher<Node>
 function element(...matchers: Array<INestedMatcher<Element>>):
@@ -161,7 +159,6 @@ function node(
   strings: TemplateStringsArray
 , ...values: string[]
 ): (...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>) => INestedMatcher<Node>
-function node(name: string): (...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>) => INestedMatcher<Node>
 function node(
   name: string
 , ...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>
@@ -183,13 +180,27 @@ function optional<T extends Node>(
 #### textContentEquals
 
 ```ts
-function textContentEquals(text: string): ITerminalMatcher<Node>
+interface ITextContentEqualsOptions {
+  caseSensitive: boolean
+}
+
+function textContentEquals(
+  text: string
+, options: ITextContentEqualsOptions = { caseSensitive: true }
+): ITerminalMatcher<Node>
 ```
 
 #### textContentIncludes
 
 ```ts
-function textContentIncludes(searchString: string): ITerminalMatcher<Node>
+interface ITextContentIncludesOptions {
+  caseSensitive: boolean
+}
+
+function textContentIncludes(
+  searchString: string
+, options: ITextContentIncludesOptions = { caseSensitive: true }
+): ITerminalMatcher<Node>
 ```
 
 #### textContentMatches
@@ -205,13 +216,12 @@ function textNode(
   strings: TemplateStringsArray
 , ...values: string[]
 ): (...matchers: Array<ITerminalMatcher<Node>>) => INestedMatcher<Node>
-function textNode(name: string): (...matchers: Array<ITerminalMatcher<Node>>) => INestedMatcher<Node>
 function textNode(
   name: string
 , ...matchers: Array<ITerminalMatcher<Node>>
 ): INestedMatcher<Node>
 function textNode(
-  ...matchers: Array<ITerminalMatcher<Element>>
+  ...matchers: Array<ITerminalMatcher<Node>>
 ): INestedMatcher<Node>
 ```
 
@@ -219,12 +229,8 @@ function textNode(
 
 ```ts
 function xpath(
-  this: IDocumentContext<Node>
-, strings: TemplateStringsArray
+  strings: TemplateStringsArray
 , ...values: string[]
 ): ITerminalMatcher<Node>
-function xpath(
-  this: IDocumentContext<Node>
-, experssion: string
-): ITerminalMatcher<Node>
+function xpath(experssion: string): ITerminalMatcher<Node>
 ```

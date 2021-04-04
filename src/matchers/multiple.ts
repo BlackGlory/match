@@ -30,7 +30,7 @@ export function multiple<T extends Node>(...args:
 ) {
   if (Array.isArray(args[0])) {
     const [[min, max], matcher, options = { greedy: true }] = args
-    return function (this: IReadonlyContext<T>, node: T) {
+    return function (this: IReadonlyContext, node: T) {
       const iter = options.greedy
         ? countdown(max, min)
         : countup(min, max)
@@ -46,7 +46,7 @@ export function multiple<T extends Node>(...args:
     }
   } else {
     const [number, matcher] = args
-    return function (this: IReadonlyContext<T>, node: T) {
+    return function (this: IReadonlyContext, node: T) {
       // @ts-ignore
       if (matchMultiple.call(this, node, number, matcher)) {
         return number
@@ -58,7 +58,7 @@ export function multiple<T extends Node>(...args:
 }
 
 function matchMultiple<T extends Node>(
-  this: IReadonlyContext<T>
+  this: IReadonlyContext
 , node: T
 , ubound: number
 , matcher: INestedMatcher<T> | ITerminalMatcher<T>
@@ -70,7 +70,7 @@ function matchMultiple<T extends Node>(
 
     const result = matcher.call(this, currentNode)
     if (result) {
-      currentNode = this.next(currentNode)
+      currentNode = this.next(currentNode) as T | null
     } else {
       return false
     }

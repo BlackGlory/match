@@ -300,15 +300,6 @@
     fs-extra "^9.0.1"
     jest-diff "^26.6.2"
 
-"@blackglory/query@^0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@blackglory/query/-/query-0.4.2.tgz#6836a05fc194c6589d472f55ea5abc346a397843"
-  integrity sha512-wIRve4SN1Au5hXNV2CP46WLDbhJN9UeK1mAp3NzhsSNdBG9K1VulVWI/cxMcLiIGLtWQcxSqvsqywTBXFZK1Zw==
-  dependencies:
-    "@blackglory/errors" "^1.1.2"
-    "@blackglory/types" "^0.4.1"
-    extra-dom "^0.2.27"
-
 "@blackglory/structures@^0.1.14":
   version "0.1.14"
   resolved "https://registry.yarnpkg.com/@blackglory/structures/-/structures-0.1.14.tgz#3c38d3260eabc8f42e1ba24f69e1d3a92fda4201"
@@ -2482,7 +2473,7 @@ extglob@^2.0.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-extra-dom@^0.2.26, extra-dom@^0.2.27:
+extra-dom@^0.2.26:
   version "0.2.27"
   resolved "https://registry.yarnpkg.com/extra-dom/-/extra-dom-0.2.27.tgz#0adc2937b00672fdd0da5d83b1a54b753c126e63"
   integrity sha512-Al3SESdY/iuA0FobV6E/K3KKRNVdjNJkH7g7t6d46AHnPEiBYxwdKaLlnvWcJBfjeAsxO1e4Y68fK++flhYtmA==

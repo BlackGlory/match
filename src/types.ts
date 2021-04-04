@@ -1,20 +1,18 @@
-export interface IContext<T> {
+export interface IContext {
   readonly document: Document
-  readonly next: (node: T) => T | null
+  readonly next: (node: Node) => Node | null
   readonly collection: {
-    [name: string]: T | T[]
+    [name: string]: Node | Node[]
   }
 }
 
-export interface IReadonlyContext<T> {
+export interface IReadonlyContext {
   readonly document: Document
-  readonly next: (node: T, distance?: number) => T | null
+  readonly next: (node: Node, distance?: number) => Node | null
   readonly collection: {
-    readonly [name: string]: T | T[]
+    readonly [name: string]: Node | Node[]
   }
 }
-
-export type IDocumentContext<T> = Pick<IReadonlyContext<T>, 'document'>
 
 export type IMatcher<T extends Node> =
 | ITerminalMatcher<T>
@@ -22,16 +20,16 @@ export type IMatcher<T extends Node> =
 | ISkipMatcher<T>
 
 export type INestedMatcher<T extends Node> = (
-  this: IReadonlyContext<T>
+  this: IReadonlyContext
 , node: T
 ) => boolean
 
 export type ISkipMatcher<T extends Node> = (
-  this: IReadonlyContext<T>
+  this: IReadonlyContext
 , node: T
 ) => number
 
 export type ITerminalMatcher<T extends Node> = (
-  this: IDocumentContext<T>
+  this: IReadonlyContext
 , node: T
 ) => boolean

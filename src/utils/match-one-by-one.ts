@@ -2,7 +2,7 @@ import { IMatcher, IReadonlyContext } from '@src/types'
 import { isBoolean } from '@blackglory/types'
 
 export function matchOneByOne<T extends Node>(
-  context: IReadonlyContext<T>
+  context: IReadonlyContext
 , source: T
 , ...matchers: Array<IMatcher<T>>
 ): boolean {
@@ -14,12 +14,13 @@ export function matchOneByOne<T extends Node>(
     const result = match.call(context, currentNode)
     if (isBoolean(result)) {
       if (result) {
-        currentNode = context.next(currentNode)
+        currentNode = context.next(currentNode) as T | null
       } else {
         return false
       }
     } else {
-      currentNode = context.next(currentNode, result)
+      const distance = result
+      currentNode = context.next(currentNode, distance) as T | null
     }
   }
 

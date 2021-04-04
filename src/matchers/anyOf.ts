@@ -7,7 +7,7 @@ export function anyOf<T extends Node>(
   , ...Array<INestedMatcher<T> | ITerminalMatcher<T>>
   ]
 ): INestedMatcher<T> {
-  return function (this: IReadonlyContext<T>, node: T) {
+  return function (this: IReadonlyContext, node: T) {
     return matchers.some(match => match.call(this, node))
   }
 }

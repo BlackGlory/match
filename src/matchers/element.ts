@@ -8,15 +8,12 @@ export function element(
   strings: TemplateStringsArray
 , ...values: string[]
 ): (...matchers: Array<INestedMatcher<Element> | ITerminalMatcher<Element>>) => INestedMatcher<Node>
-export function element(name: string):
-  (...matchers: Array<INestedMatcher<Element>>) => INestedMatcher<Node>
 export function element(name: string, ...matchers: Array<INestedMatcher<Element>>):
   INestedMatcher<Node>
 export function element(...matchers: Array<INestedMatcher<Element>>):
   INestedMatcher<Node>
 export function element(...args:
 | [strings: TemplateStringsArray, ...values: string[]]
-| [name: string]
 | [name: string, ...matchers: Array<INestedMatcher<Element> | ITerminalMatcher<Element>>]
 | [...matchers: Array<INestedMatcher<Element> | ITerminalMatcher<Element>>]
 ) {
@@ -25,20 +22,14 @@ export function element(...args:
       args as [strings: TemplateStringsArray, ...values: string[]]
     const name = concat(strings, values).join('')
 
-    return element(name)
+    return (...matchers: Array<INestedMatcher<Element> | ITerminalMatcher<Element>>) => element(name, ...matchers)
   }
 
-  if (isString(args[0]) && args.length === 1) {
-    const [name] = args as [name: string]
-
-    return (...matchers: Array<INestedMatcher<Element> | ITerminalMatcher<Node>>) => element(name, ...matchers)
-  }
-
-  if (isString(args[0]) && args.length > 1) {
+  if (isString(args[0])) {
     const [name, ...matchers] =
       args as [name: string, ...matchers: Array<INestedMatcher<Element> | ITerminalMatcher<Element>>]
 
-    return function (this: IReadonlyContext<Node>, _element: Element) {
+    return function (this: IReadonlyContext, _element: Element) {
       const result = element(...matchers).call(this, _element)
       if (result) {
         merge(this.collection, { [name]: _element })
@@ -49,13 +40,10 @@ export function element(...args:
 
   const [...matchers] = args as [...matchers: Array<INestedMatcher<Element> | ITerminalMatcher<Element>>]
 
-  return function (this: IReadonlyContext<Node>, element: Element) {
+  return function (this: IReadonlyContext, element: Element) {
     if (isntElement(element)) return false
     if (matchers.length === 0) return true
 
-    return matchers.every(match => match.call(
-      this as unknown as IReadonlyContext<Element>
-    , element
-    ))
+    return matchers.every(match => match.call(this, element))
   }
 }

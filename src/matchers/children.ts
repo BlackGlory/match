@@ -1,11 +1,12 @@
 import { IMatcher, INestedMatcher, IReadonlyContext } from '@src/types'
 import { matchOneByOne } from '@utils/match-one-by-one'
 import { merge } from '@utils/merge'
+import { nextElementSibling } from 'extra-dom'
 
 export function children(
   ...matchers: Array<IMatcher<Element>>
 ): INestedMatcher<Element> {
-  return function (this: IReadonlyContext<Element>, element: Element) {
+  return function (this: IReadonlyContext, element: Element) {
     if (element.children.length === 0) {
       // 空matchers意味着"children应该为空".
       if (matchers.length === 0) return true
@@ -13,10 +14,10 @@ export function children(
       return false
     }
 
-    const context: IReadonlyContext<Element> = {
+    const context: IReadonlyContext = {
       ...this
     , collection: {}
-    , next
+    , next: nextElementSibling
     }
 
     const result = matchOneByOne(
@@ -31,8 +32,4 @@ export function children(
 
     return result
   }
-}
-
-function next(element: Element): Element | null {
-  return element.nextElementSibling
 }

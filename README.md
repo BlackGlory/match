@@ -173,12 +173,16 @@ function optional<T extends Node>(
 
 ```ts
 interface ITextContentEqualsOptions {
-  caseSensitive: boolean
+  caseSensitive?: boolean
+  trim?: boolean
 }
 
 function textContentEquals(
   text: string
-, options: ITextContentEqualsOptions = { caseSensitive: true }
+, {
+    caseSensitive = true
+  , trim = false
+  }: ITextContentEqualsOptions = {}
 ): ITerminalMatcher<Node>
 ```
 
@@ -186,19 +190,30 @@ function textContentEquals(
 
 ```ts
 interface ITextContentIncludesOptions {
-  caseSensitive: boolean
+  caseSensitive?: boolean
+  trim?: boolean
 }
 
-function textContentIncludes(
+export function textContentIncludes(
   searchString: string
-, options: ITextContentIncludesOptions = { caseSensitive: true }
+, {
+    caseSensitive = true
+  , trim = false
+  }: ITextContentIncludesOptions = {}
 ): ITerminalMatcher<Node>
 ```
 
 #### textContentMatches
 
 ```ts
-function textContentMatches(pattern: RegExp): ITerminalMatcher<Node>
+interface ITextContentMatchesOptions {
+  trim?: boolean
+}
+
+export function textContentMatches(
+  pattern: RegExp
+, { trim = false }: ITextContentMatchesOptions = {}
+): ITerminalMatcher<Node>
 ```
 
 #### textNode

@@ -2,20 +2,27 @@ import { ITerminalMatcher } from '@src/types'
 import { isNull } from '@blackglory/types'
 
 interface ITextContentIncludesOptions {
-  caseSensitive: boolean
+  caseSensitive?: boolean
+  trim?: boolean
 }
 
 export function textContentIncludes(
   searchString: string
-, options: ITextContentIncludesOptions = { caseSensitive: true }
+, {
+    caseSensitive = true
+  , trim = false
+  }: ITextContentIncludesOptions = {}
 ): ITerminalMatcher<Node> {
   return (node: Node) => {
     if (isNull(node.textContent)) return false
 
-    if (options.caseSensitive) {
-      return node.textContent.includes(searchString)
-    } else {
-      return node.textContent.toLowerCase().includes(searchString.toLowerCase())
+    let textContent = node.textContent
+    if (!caseSensitive) {
+      textContent = textContent.toLowerCase()
+      searchString = searchString.toLowerCase()
     }
+    if (trim) textContent = textContent.trim()
+
+    return textContent.includes(searchString)
   }
 }

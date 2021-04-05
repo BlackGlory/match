@@ -30,6 +30,7 @@ export function multiple<T extends Node>(...args:
 ): ISkipMatcher<T> {
   if (Array.isArray(args[0])) {
     const [[min, max], matcher, options = { greedy: true }] = args
+
     return function (this: IReadonlyContext, node: T) {
       if (options.greedy) {
         // @ts-ignore
@@ -50,6 +51,7 @@ export function multiple<T extends Node>(...args:
     }
   } else {
     const [number, matcher] = args
+
     return function (this: IReadonlyContext, node: T) {
       // @ts-ignore
       if (matchMultiple.call(this, node, number, matcher) === number) {

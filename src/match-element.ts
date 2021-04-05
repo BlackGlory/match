@@ -7,7 +7,7 @@ export function matchElement(
   this: void | Document
 , element: Element
 , ...matchers: Array<IMatcher<Element>>
-): { [name: string]: Element | Element[] } | null {
+): { [name: string]: Node | Node[] } | null {
   const document = isDocument(this) ? this : globalThis.document
   const context: IContext = {
     document
@@ -16,7 +16,7 @@ export function matchElement(
   }
 
   if (matchOneByOne(context, element, ...matchers)) {
-    return context.collection as { [name: string]: Element | Element[] }
+    return context.collection
   } else {
     return null
   }

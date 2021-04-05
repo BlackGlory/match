@@ -5,12 +5,12 @@ import { nextSibling } from 'extra-dom'
 
 export function childNodes(...matchers: Array<IMatcher<Node>>): INestedMatcher<Node> {
   return function (this: IReadonlyContext, node: Node) {
-    if (node.childNodes.length === 0) {
-      // 空matchers意味着"childNodes应该为空".
-      if (matchers.length === 0) return true
-
-      return false
+    // 空matchers意味着"childNodes应该为空".
+    if (matchers.length === 0) {
+      return node.childNodes.length === 0
     }
+
+    if (node.childNodes.length === 0) return false
 
     const context: IReadonlyContext = {
       ...this

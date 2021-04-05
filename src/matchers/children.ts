@@ -7,12 +7,12 @@ export function children(
   ...matchers: Array<IMatcher<Element>>
 ): INestedMatcher<Element> {
   return function (this: IReadonlyContext, element: Element) {
-    if (element.children.length === 0) {
-      // 空matchers意味着"children应该为空".
-      if (matchers.length === 0) return true
-
-      return false
+    // 空matchers意味着"children应该为空".
+    if (matchers.length === 0) {
+      return element.children.length === 0
     }
+
+    if (element.children.length === 0) return false
 
     const context: IReadonlyContext = {
       ...this

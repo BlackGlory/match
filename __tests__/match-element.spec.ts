@@ -6,7 +6,7 @@ describe(`
     this: void | Document
   , node: Element
   , ...matchers: Array<IMatcher<Element>>
-  ): { [name: string]: Element | Element[] } | null
+  ): { [name: string]: Node | Node[] } | null
 `, () => {
   describe('match', () => {
     it('return { [name: string]: Element | Element[] }', () => {

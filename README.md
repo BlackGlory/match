@@ -13,39 +13,28 @@ yarn add @blackglory/match
 ## Usage
 
 ```ts
-import { match, text, element, css, includesText, optional } from '@blackglory/match'
+import { matchElement, element, css, childNodes, textNode, children, multiple } from '@blackglory/match'
 
-const nodes = match(root
-  textNode(
-    includeText('Reply to')
-  )
-, element(
-    css`[title*="打开链接"]`
-  , textContentIncludes('+')
-  )
-, element`target`(
-    css`[title*="快速浏览"]`
-  , textContentIncludes('R')
-  , children(
-      element(
-        css`[title]`
-      )
+const result = matchElement(node,
+  element(
+    css`header`
+  , childNodes(
+      textNode`heading`()
     )
   )
-, textNode(
-    textContentIncludes('by')
-  )
-, textNode(
-    css`a`
-  , textContentMatches(/\(\d{4}-\d{2}-\d{2} \d{2}:\d{2}\)/)
-  )
-, multiple([2, 10], element())
-, optional(
-    element(
-      css`br`
+, element(
+    css`section`
+  , children(
+      multiple([1, Infinity], element(
+        css`p`
+      , childNodes(
+          textNode`paragraph`()
+        )
+      ))
     )
   )
 )
+// { heading: Text, paragraph: [ Text, Text ] }
 ```
 
 ## API
@@ -89,7 +78,7 @@ function matchElement(
   this: void | Document
 , element: Element
 , ...matchers: Array<IMatcher<Element>>
-): { [name: string]: Element | Element[] } | null
+): { [name: string]: Node | Node[] } | null
 ```
 
 ### Matchers

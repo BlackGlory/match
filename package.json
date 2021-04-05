@@ -72,7 +72,7 @@
   "dependencies": {
     "@blackglory/errors": "^1.1.2",
     "@blackglory/types": "^0.4.2",
-    "extra-dom": "^0.2.26",
+    "extra-dom": "^0.2.29",
     "extra-generator": "^0.2.1"
   }
 }

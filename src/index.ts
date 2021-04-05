@@ -1,8 +1,8 @@
 export { match } from './match'
 export { matchElement } from './match-element'
 
-export { anyOf } from '@matchers/anyOf'
-export { childNodes } from '@matchers/childNodes'
+export { anyOf } from '@matchers/any-of'
+export { childNodes } from '@matchers/child-nodes'
 export { children } from '@matchers/children'
 export { css } from '@matchers/css'
 export { element } from '@matchers/element'

@@ -27,7 +27,7 @@ export type INestedMatcher<T extends Node> = (
 export type ISkipMatcher<T extends Node> = (
   this: IReadonlyContext
 , node: T
-) => number
+) => number | false
 
 export type ITerminalMatcher<T extends Node> = (
   this: IReadonlyContext

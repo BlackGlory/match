@@ -7,10 +7,10 @@ describe('textContentIncludes(text: string): ITerminalMatcher<Node>', () => {
     describe('match', () => {
       it('return true', () => {
         const context = createContext()
-        const root = parse('<div> test </div>')[0] as Element
+        const node = parse('<div> test </div>')[0] as Element
 
         const match = textContentIncludes('test')
-        const result = match.call(context, root)
+        const result = match.call(context, node)
 
         expect(result).toBe(true)
       })
@@ -19,10 +19,10 @@ describe('textContentIncludes(text: string): ITerminalMatcher<Node>', () => {
     describe('does not match', () => {
       it('return false', () => {
         const context = createContext()
-        const root = parse('<div> TEST </div>')[0] as Element
+        const node = parse('<div> TEST </div>')[0] as Element
 
         const match = textContentIncludes('test')
-        const result = match.call(context, root)
+        const result = match.call(context, node)
 
         expect(result).toBe(false)
       })
@@ -33,10 +33,10 @@ describe('textContentIncludes(text: string): ITerminalMatcher<Node>', () => {
     describe('match', () => {
       it('return true', () => {
         const context = createContext()
-        const root = parse('<div> TEST </div>')[0] as Element
+        const node = parse('<div> TEST </div>')[0] as Element
 
         const match = textContentIncludes('test', { caseSensitive: false })
-        const result = match.call(context, root)
+        const result = match.call(context, node)
 
         expect(result).toBe(true)
       })
@@ -45,10 +45,10 @@ describe('textContentIncludes(text: string): ITerminalMatcher<Node>', () => {
     describe('does not match', () => {
       it('return false', () => {
         const context = createContext()
-        const root = parse('<div></div>')[0] as Element
+        const node = parse('<div></div>')[0] as Element
 
         const match = textContentIncludes('test', { caseSensitive: false })
-        const result = match.call(context, root)
+        const result = match.call(context, node)
 
         expect(result).toBe(false)
       })

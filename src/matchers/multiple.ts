@@ -1,5 +1,5 @@
 import { INestedMatcher, ITerminalMatcher, ISkipMatcher, IReadonlyContext } from '@src/types'
-import { countup, countdown } from 'extra-generator'
+import { countup } from 'extra-generator'
 
 export enum Range {
   Min = 0
@@ -27,18 +27,22 @@ export function multiple<T extends Node>(...args:
   , matcher: INestedMatcher<T> | ITerminalMatcher<T>
   , options?: IMultipleOptions
   ]
-) {
+): ISkipMatcher<T> {
   if (Array.isArray(args[0])) {
     const [[min, max], matcher, options = { greedy: true }] = args
     return function (this: IReadonlyContext, node: T) {
-      const iter = options.greedy
-        ? countdown(max, min)
-        : countup(min, max)
-
-      for (const ubound of iter) {
+      if (options.greedy) {
         // @ts-ignore
-        if (matchMultiple.call(this, node, ubound, matcher)) {
-          return ubound
+        const round = matchMultiple.call(this, node, max, matcher)
+        if (round >= min) {
+          return round
+        }
+      } else {
+        for (const ubound of countup(min, max)) {
+          // @ts-ignore
+          if (matchMultiple.call(this, node, ubound, matcher) === ubound) {
+            return ubound
+          }
         }
       }
 
@@ -48,7 +52,7 @@ export function multiple<T extends Node>(...args:
     const [number, matcher] = args
     return function (this: IReadonlyContext, node: T) {
       // @ts-ignore
-      if (matchMultiple.call(this, node, number, matcher)) {
+      if (matchMultiple.call(this, node, number, matcher) === number) {
         return number
       } else {
         return false
@@ -57,24 +61,28 @@ export function multiple<T extends Node>(...args:
   }
 }
 
+/**
+ *
+ * @returns {number} 返回值为成功匹配的元素个数, 当此值等于ubound时, 代表匹配成功.
+ */
 function matchMultiple<T extends Node>(
   this: IReadonlyContext
 , node: T
 , ubound: number
 , matcher: INestedMatcher<T> | ITerminalMatcher<T>
-): boolean {
+): number {
   let currentNode: T | null = node
 
-  for (const _ of countup(1, ubound)) {
-    if (!currentNode) return false
+  for (const round of countup(1, ubound)) {
+    if (!currentNode) return round - 1
 
     const result = matcher.call(this, currentNode)
     if (result) {
       currentNode = this.next(currentNode) as T | null
     } else {
-      return false
+      return round - 1
     }
   }
 
-  return true
+  return ubound
 }

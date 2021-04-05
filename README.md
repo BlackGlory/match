@@ -69,7 +69,7 @@ type INestedMatcher<T extends Node> = (
 type ISkipMatcher<T extends Node> = (
   this: IReadonlyContext<T>
 , node: T
-) => number
+) => number | false
 ```
 
 ### match
@@ -141,6 +141,10 @@ function element(...matchers: Array<INestedMatcher<Element>>):
 #### multiple
 
 ```ts
+interface IMultipleOptions {
+  greedy: boolean
+}
+
 function multiple<T extends Node>(
   number: number
 , matcher: INestedMatcher<T> | ITerminalMatcher<T>
@@ -148,7 +152,7 @@ function multiple<T extends Node>(
 function multiple<T extends Node>(
   range: [min: number, max: number]
 , matcher: INestedMatcher<T> | ITerminalMatcher<T>
-, options?:  IMultipleOptions
+, options:  IMultipleOptions = { greedy: true }
 ): ISkipMatcher<T>
 ```
 
@@ -173,7 +177,6 @@ function node(
 ```ts
 function optional<T extends Node>(
   matcher: INestedMatcher<T> | ITerminalMatcher<T>
-, options?: IOptionalOptions
 ): ISkipMatcher<T>
 ```
 

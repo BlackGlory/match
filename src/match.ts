@@ -9,7 +9,7 @@ export function match(
 , ...matchers: Array<IMatcher<Node>>
 ): { [name: string]: Node | Node[] } | null {
   const document = isDocument(this) ? this : globalThis.document
-  const context: IContext<Node> = {
+  const context: IContext = {
     document
   , collection: {}
   , next: nextSibling

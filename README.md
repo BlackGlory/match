@@ -169,6 +169,15 @@ function optional<T extends Node>(
 ): ISkipMatcher<T>
 ```
 
+#### tap
+
+```ts
+function tap<T extends IMatcher<any>>(
+  matcher: T
+, callback: (value: number | boolean) => void
+): T
+```
+
 #### textContentEquals
 
 ```ts

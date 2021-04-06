@@ -135,10 +135,6 @@ interface IMultipleOptions {
 }
 
 function multiple<T extends Node>(
-  number: number
-, matcher: INestedMatcher<T> | ITerminalMatcher<T>
-): ISkipMatcher<T>
-function multiple<T extends Node>(
   range: [min: number, max: number]
 , matcher: INestedMatcher<T> | ITerminalMatcher<T>
 , options:  IMultipleOptions = { greedy: true }
@@ -166,6 +162,15 @@ function node(
 ```ts
 function optional<T extends Node>(
   matcher: INestedMatcher<T> | ITerminalMatcher<T>
+): ISkipMatcher<T>
+```
+
+#### repeat
+
+```ts
+function repeat<T extends Node>(
+  times: number
+, matcher: INestedMatcher<T> | ITerminalMatcher<T>
 ): ISkipMatcher<T>
 ```
 

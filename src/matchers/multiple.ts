@@ -1,5 +1,7 @@
 import { INestedMatcher, ITerminalMatcher, ISkipMatcher, IReadonlyContext } from '@src/types'
 import { countup } from 'extra-generator'
+import { assert } from '@blackglory/errors'
+import { matchMultiple } from '@utils/match-multiple'
 
 export enum Range {
   Min = 0
@@ -12,79 +14,38 @@ interface IMultipleOptions {
 }
 
 export function multiple<T extends Node>(
-  number: number
+  [min, max]: [min: number, max: number]
 , matcher: INestedMatcher<T> | ITerminalMatcher<T>
-): ISkipMatcher<T>
-export function multiple<T extends Node>(
-  range: [min: number, max: number]
-, matcher: INestedMatcher<T> | ITerminalMatcher<T>
-, options?:  IMultipleOptions
-): ISkipMatcher<T>
-export function multiple<T extends Node>(...args:
-| [number: number, matcher: INestedMatcher<T> | ITerminalMatcher<T>]
-| [
-    range: [min: number, max: number]
-  , matcher: INestedMatcher<T> | ITerminalMatcher<T>
-  , options?: IMultipleOptions
-  ]
+, options: IMultipleOptions = { greedy: true }
 ): ISkipMatcher<T> {
-  if (Array.isArray(args[0])) {
-    const [[min, max], matcher, options = { greedy: true }] = args
+  assert(Number.isInteger(min), 'parameter min must be an integer')
+  assert(Number.isInteger(max) || max === Infinity, 'parameter max must be an integer or Infinity')
+  assert(min >= 0, 'parameter min must be greater than or equal to 0')
+  assert(min <= max, 'parameter max must be greater than or equal to min')
 
-    return function (this: IReadonlyContext, node: T) {
-      if (options.greedy) {
+  return function* (this: IReadonlyContext, node: T) {
+    if (options.greedy) {
+      let ubound = max
+      while (true) {
         // @ts-ignore
-        const round = matchMultiple.call(this, node, max, matcher)
-        if (round >= min) {
-          return round
-        }
-      } else {
-        for (const ubound of countup(min, max)) {
-          // @ts-ignore
-          if (matchMultiple.call(this, node, ubound, matcher) === ubound) {
-            return ubound
-          }
-        }
+        const round = matchMultiple.call(this, node, ubound, matcher)
+
+        if (round < min) break
+        yield round
+
+        ubound = round - 1
+        if (ubound < min) break
       }
-
-      return false
-    }
-  } else {
-    const [number, matcher] = args
-
-    return function (this: IReadonlyContext, node: T) {
-      // @ts-ignore
-      if (matchMultiple.call(this, node, number, matcher) === number) {
-        return number
-      } else {
-        return false
-      }
-    }
-  }
-}
-
-/**
- *
- * @returns {number} 返回值为成功匹配的元素个数, 当此值等于ubound时, 代表匹配成功.
- */
-function matchMultiple<T extends Node>(
-  this: IReadonlyContext
-, node: T
-, ubound: number
-, matcher: INestedMatcher<T> | ITerminalMatcher<T>
-): number {
-  let currentNode: T | null = node
-
-  for (const round of countup(1, ubound)) {
-    if (!currentNode) return round - 1
-
-    const result = matcher.call(this, currentNode)
-    if (result) {
-      currentNode = this.next(currentNode) as T | null
     } else {
-      return round - 1
+      for (const ubound of countup(min, max)) {
+        // @ts-ignore
+        const result = matchMultiple.call(this, node, ubound, matcher)
+
+        // 如果匹配的节点数量少于ubound, 说明匹配失败, 即使尝试更长的匹配也不会成功.
+        if (result < ubound) break
+
+        if (result === ubound) yield ubound
+      }
     }
   }
-
-  return ubound
 }

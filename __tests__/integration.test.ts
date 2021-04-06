@@ -66,49 +66,101 @@ test('optional', () => {
 })
 
 describe('multiple + optional', () => {
-  test('br', () => {
-    const root = parse(`
-      <div>
-        <header>Header</header>
-        <article>Article</article>
-        <br />
-        <br />
-        <footer>Footer</footer>
-      </div>
-    `.trim())[0] as Element
-    const header = getBySelector.call(root, 'header')
-    const article = getBySelector.call(root, 'article')
-    const footer = getBySelector.call(root, 'footer')
+  describe('greedy = true', () => {
+    test('br', () => {
+      const root = parse(`
+        <div>
+          <header>Header</header>
+          <article>Article</article>
+          <br />
+          <br />
+          <footer>Footer</footer>
+        </div>
+      `.trim())[0] as Element
+      const header = getBySelector.call(root, 'header')
+      const article = getBySelector.call(root, 'article')
+      const footer = getBySelector.call(root, 'footer')
 
-    const result = matchElement(header
-    , element`header`(css`header`)
-    , element`article`(css`article`)
-    , multiple([0, Infinity], element(css`br`))
-    , optional(element`footer`(css`footer`))
-    )
+      const result = matchElement(header
+      , element`header`(css`header`)
+      , element`article`(css`article`)
+      , multiple([0, Infinity], element(css`br`), { greedy: true })
+      , optional(element`footer`(css`footer`))
+      )
 
-    expect(result).toStrictEqual({ header, article, footer })
+      expect(result).toStrictEqual({ header, article, footer })
+    })
+
+    test('no br', () => {
+      const root = parse(`
+        <div>
+          <header>Header</header>
+          <article>Article</article>
+          <footer>Footer</footer>
+        </div>
+      `.trim())[0] as Element
+      const header = getBySelector.call(root, 'header')
+      const article = getBySelector.call(root, 'article')
+      const footer = getBySelector.call(root, 'footer')
+
+      const result = matchElement(header
+      , element`header`(css`header`)
+      , element`article`(css`article`)
+      , multiple([0, Infinity], element(css`br`), { greedy: true })
+      , optional(element`footer`(css`footer`))
+      )
+
+      expect(result).toStrictEqual({ header, article, footer })
+    })
   })
 
-  test('no br', () => {
-    const root = parse(`
-      <div>
-        <header>Header</header>
-        <article>Article</article>
-        <footer>Footer</footer>
-      </div>
-    `.trim())[0] as Element
-    const header = getBySelector.call(root, 'header')
-    const article = getBySelector.call(root, 'article')
-    const footer = getBySelector.call(root, 'footer')
+  describe('greedy = false', () => {
+    test('br', () => {
+      const root = parse(`
+        <div>
+          <header>Header</header>
+          <article>Article</article>
+          <br />
+          <br />
+          <footer>Footer</footer>
+        </div>
+      `.trim())[0] as Element
+      const header = getBySelector.call(root, 'header')
+      const article = getBySelector.call(root, 'article')
 
-    const result = matchElement(header
-    , element`header`(css`header`)
-    , element`article`(css`article`)
-    , multiple([0, Infinity], element(css`br`))
-    , optional(element`footer`(css`footer`))
-    )
+      const result = matchElement(header
+      , element`header`(css`header`)
+      , element`article`(css`article`)
+      , multiple([0, Infinity], element(css`br`), { greedy: false })
+      , optional(element`footer`(css`footer`))
+      )
 
-    expect(result).toStrictEqual({ header, article, footer })
+      // multiple使用非贪婪模式, 且min = 0, 因此直接匹配成功.
+      // optional会匹配失败, 因为BR元素不满足css`footer`, 但optional的特性使它匹配成功.
+      // 因此虽然匹配最终成功, 却无法收集到footer.
+      expect(result).toStrictEqual({ header, article })
+    })
+
+    test('no br', () => {
+      const root = parse(`
+        <div>
+          <header>Header</header>
+          <article>Article</article>
+          <footer>Footer</footer>
+        </div>
+      `.trim())[0] as Element
+      const header = getBySelector.call(root, 'header')
+      const article = getBySelector.call(root, 'article')
+      const footer = getBySelector.call(root, 'footer')
+
+      const result = matchElement(header
+      , element`header`(css`header`)
+      , element`article`(css`article`)
+      , multiple([0, Infinity], element(css`br`), { greedy: false })
+      , optional(element`footer`(css`footer`))
+      )
+
+      expect(result).toStrictEqual({ header, article, footer })
+    })
   })
 })

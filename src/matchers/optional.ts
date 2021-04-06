@@ -1,11 +1,6 @@
-import { INestedMatcher, ITerminalMatcher, ISkipMatcher, IReadonlyContext } from '@src/types'
+import { INestedMatcher, ITerminalMatcher, ISkipMatcher } from '@src/types'
+import { multiple } from './multiple'
 
 export function optional<T extends Node>(matcher: INestedMatcher<T> | ITerminalMatcher<T>): ISkipMatcher<T> {
-  return function (this: IReadonlyContext, node: T) {
-    if (matcher.call(this, node)) {
-      return 1
-    } else {
-      return 0
-    }
-  }
+  return multiple([0, 1], matcher, { greedy: true })
 }

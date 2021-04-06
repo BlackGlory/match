@@ -15,8 +15,8 @@ yarn add @blackglory/match
 ```ts
 import { matchElement, element, css, childNodes, textNode, children, multiple } from '@blackglory/match'
 
-const result = matchElement(node,
-  element(
+const result = matchElement(node
+, element(
     css`header`
   , childNodes(
       textNode`heading`()

@@ -1,7 +1,7 @@
 import { isDocument } from 'extra-dom'
 import { IMatcher, IContext } from './types'
 import { matchOneByOne } from '@utils/match-one-by-one'
-import { nextElementSibling } from 'extra-dom'
+import { nextElementSibling } from '@utils/next-element-sibling'
 
 export function matchElement(
   this: void | Document

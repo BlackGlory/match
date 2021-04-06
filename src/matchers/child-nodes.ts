@@ -1,7 +1,7 @@
 import { INestedMatcher, IMatcher, IReadonlyContext } from '@src/types'
 import { matchOneByOne } from '@utils/match-one-by-one'
 import { merge } from '@utils/merge'
-import { nextSibling } from 'extra-dom'
+import { nextSibling } from '@utils/next-sibling'
 
 export function childNodes(...matchers: Array<IMatcher<Node>>): INestedMatcher<Node> {
   return function (this: IReadonlyContext, node: Node) {

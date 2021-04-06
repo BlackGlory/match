@@ -1,7 +1,7 @@
 import { IMatcher, INestedMatcher, IReadonlyContext } from '@src/types'
 import { matchOneByOne } from '@utils/match-one-by-one'
 import { merge } from '@utils/merge'
-import { nextElementSibling } from 'extra-dom'
+import { nextElementSibling } from '@utils/next-element-sibling'
 
 export function children(
   ...matchers: Array<IMatcher<Element>>

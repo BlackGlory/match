@@ -2473,11 +2473,12 @@ extglob@^2.0.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-extra-dom@^0.2.29:
-  version "0.2.29"
-  resolved "https://registry.yarnpkg.com/extra-dom/-/extra-dom-0.2.29.tgz#0fb5e24ed2986611391c78a29feaba99039994b0"
-  integrity sha512-Dj+0HVy+f/EQaDiZWLZ6oj2FUbsWU/HuBJ0tSfRTdxYZlvoer1/Jm2L3p4LLB2VQcBQ/xswoxVA3fSHF7v/n/w==
+extra-dom@^0.2.30:
+  version "0.2.30"
+  resolved "https://registry.yarnpkg.com/extra-dom/-/extra-dom-0.2.30.tgz#d5fe54e723223f4774611a202eac02a38febfc6d"
+  integrity sha512-s6TXDstAsNshbzQ23LNlEoMYl5neM2CDBjUVcY49BJlZShUwLITQLrwUK1pPurrDuuwM7W4kybpY4yupwk8HEA==
   dependencies:
+    "@blackglory/errors" "^1.1.2"
     "@blackglory/types" "^0.4.2"
     iterable-operator "^0.13.6"
 

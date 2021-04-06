@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/BlackGlory/match/compare/v0.1.1...v0.1.2) (2021-04-06)
+
+
+### Features
+
+* add tap ([b76c5d1](https://github.com/BlackGlory/match/commit/b76c5d1de0df6134ca1fd5a6be26a0fbc792e3a3))
+
 ### [0.1.1](https://github.com/BlackGlory/match/compare/v0.1.0...v0.1.1) (2021-04-05)
 
 

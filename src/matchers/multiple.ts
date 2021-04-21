@@ -27,8 +27,12 @@ export function multiple<T extends Node>(
     if (options.greedy) {
       let ubound = max
       while (true) {
-        // @ts-ignore
-        const round = matchMultiple.call(this, node, ubound, matcher)
+        const round = matchMultiple.call(
+          this
+        , node
+        , ubound
+        , matcher as INestedMatcher<Node> | ITerminalMatcher<Node>
+        )
 
         if (round < min) break
         yield round
@@ -38,8 +42,12 @@ export function multiple<T extends Node>(
       }
     } else {
       for (const ubound of countup(min, max)) {
-        // @ts-ignore
-        const result = matchMultiple.call(this, node, ubound, matcher)
+        const result = matchMultiple.call(
+          this
+        , node
+        , ubound
+        , matcher as INestedMatcher<Node> | INestedMatcher<Node>
+        )
 
         // 如果匹配的节点数量少于ubound, 说明匹配失败, 即使尝试更长的匹配也不会成功.
         if (result < ubound) break

@@ -3,10 +3,10 @@ import { tap } from '@matchers/tap'
 import { createContext } from '@test/utils'
 
 describe(`
-  tap<T extends IMatcher<any>>(
-    matcher: T
-  , cb: (value: number | boolean) => void
-  ): T
+  tap<T extends Node, U extends IMatcher<T>>(
+    matcher: U
+  , callback: (value: ReturnType<U>) => void
+  ): U
 `, () => {
   it('returns the result of the matcher', () => {
     const context = createContext()

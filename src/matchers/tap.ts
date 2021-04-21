@@ -1,13 +1,12 @@
-import { IMatcher, IReadonlyContext } from '@src/types'
+import { IReadonlyContext, IMatcher } from '@src/types'
 
-export function tap<T extends IMatcher<any>>(
-  matcher: T
-, callback: (value: number | boolean) => void
-): T {
+export function tap<T extends Node, U extends ReturnType<IMatcher<any>>>(
+  matcher: (this: IReadonlyContext, node: T) => U
+, callback: (value: U) => void
+): (this: IReadonlyContext, node: T) => U {
   return function (this: IReadonlyContext, node: T) {
-    // @ts-ignore
     const result = matcher.call(this, node)
     callback(result)
     return result
-  } as T
+  }
 }

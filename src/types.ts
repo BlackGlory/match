@@ -18,6 +18,10 @@ export type IMatcher<T extends Node> =
 | ITerminalMatcher<T>
 | INestedMatcher<T>
 | ISkipMatcher<T>
+| (
+    <T extends Node>(this: IReadonlyContext, node: T) =>
+      boolean | number | Iterable<number>
+  )
 
 export type INestedMatcher<T extends Node> = (
   this: IReadonlyContext

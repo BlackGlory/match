@@ -177,10 +177,10 @@ function repeat<T extends Node>(
 #### tap
 
 ```ts
-function tap<T extends IMatcher<any>>(
-  matcher: T
-, callback: (value: number | boolean) => void
-): T
+function tap<T extends Node, U extends ReturnType<IMatcher<any>>>(
+  matcher: (this: IReadonlyContext, node: T) => U
+, callback: (value: U) => void
+): (this: IReadonlyContext, node: T) => U
 ```
 
 #### textContentEquals

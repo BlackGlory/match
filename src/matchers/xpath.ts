@@ -33,8 +33,7 @@ export function xpath(...args:
     const [strings, ...values] = args
     const expression = concat(strings, values).join('')
 
-    // @ts-ignore
-    return xpath.call(this, expression)
+    return xpath(expression)
   }
 }
 

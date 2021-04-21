@@ -10,8 +10,13 @@ export function repeat<T extends Node>(
   assert(times >= 0, 'parameter number must be greater than or equal to 0')
 
   return function (this: IReadonlyContext, node: T) {
-    // @ts-ignore
-    if (matchMultiple.call(this, node, times, matcher) === times) {
+    const result = matchMultiple.call(
+      this
+    , node
+    , times
+    , matcher as INestedMatcher<Node> | ITerminalMatcher<Node>
+    )
+    if (result === times) {
       return times
     } else {
       return false

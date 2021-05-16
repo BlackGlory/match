@@ -40,6 +40,22 @@ const result = matchElement(node
 ## API
 
 ```ts
+interface IContext {
+  readonly document: Document
+  readonly next: (node: Node, distance?: number) => Node | undefined
+  readonly collection: {
+    [name: string]: Node | Node[]
+  }
+}
+
+interface IReadonlyContext {
+  readonly document: Document
+  readonly next: (node: Node, distance?: number) => Node | undefined
+  readonly collection: {
+    readonly [name: string]: Node | Node[]
+  }
+}
+
 type IMatcher<T extends Node> =
 | ITerminalMatcher<T>
 | INestedMatcher<T>

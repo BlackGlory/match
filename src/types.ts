@@ -1,6 +1,6 @@
 export interface IContext {
   readonly document: Document
-  readonly next: (node: Node) => Node | null
+  readonly next: (node: Node, distance?: number) => Node | undefined
   readonly collection: {
     [name: string]: Node | Node[]
   }
@@ -8,7 +8,7 @@ export interface IContext {
 
 export interface IReadonlyContext {
   readonly document: Document
-  readonly next: (node: Node, distance?: number) => Node | null
+  readonly next: (node: Node, distance?: number) => Node | undefined
   readonly collection: {
     readonly [name: string]: Node | Node[]
   }

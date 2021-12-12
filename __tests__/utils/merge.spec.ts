@@ -1,7 +1,7 @@
-import { merge } from '@utils/merge'
+import { mergeInPlace } from '@utils/merge-in-place'
 
 describe(`
-  merge<T>(
+  mergeInPlace<T>(
     target: { [key: string]: T | T[] }
   , source: { [key: string]: T | T[] }
   ): void
@@ -10,7 +10,7 @@ describe(`
     const target = { hello: 'hello' }
     const source = { world: 'world' }
 
-    merge(target, source)
+    mergeInPlace(target, source)
 
     expect(target).toStrictEqual({
       hello: 'hello'
@@ -22,7 +22,7 @@ describe(`
     const target = { text: 'hello' }
     const source = { text: 'world' }
 
-    merge(target, source)
+    mergeInPlace(target, source)
 
     expect(target).toStrictEqual({
       text: ['hello', 'world']

@@ -1,6 +1,6 @@
 import { INestedMatcher, IMatcher, IReadonlyContext } from '@src/types'
 import { matchOneByOne } from '@utils/match-one-by-one'
-import { merge } from '@utils/merge'
+import { mergeInPlace } from '@utils/merge-in-place'
 import { nextSibling } from '@utils/next-sibling'
 
 export function childNodes(...matchers: Array<IMatcher<Node>>): INestedMatcher<Node> {
@@ -25,7 +25,7 @@ export function childNodes(...matchers: Array<IMatcher<Node>>): INestedMatcher<N
     )
 
     if (result) {
-      merge(this.collection, context.collection)
+      mergeInPlace(this.collection, context.collection)
     }
 
     return result

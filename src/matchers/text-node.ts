@@ -2,7 +2,7 @@ import { INestedMatcher, ITerminalMatcher, IReadonlyContext } from '@src/types'
 import { isArray, isString } from '@blackglory/types'
 import { concat } from '@utils/concat'
 import { isntTextNode } from 'extra-dom'
-import { merge } from '@utils/merge'
+import { mergeInPlace } from '@utils/merge-in-place'
 
 export function textNode(
   strings: TemplateStringsArray
@@ -35,7 +35,7 @@ export function textNode(...args:
     return function (this: IReadonlyContext, node: Node) {
       const result = textNode(...matchers).call(this, node)
       if (result) {
-        merge(this.collection, { [name]: node })
+        mergeInPlace(this.collection, { [name]: node })
       }
       return result
     }

@@ -2,7 +2,7 @@ import { isntElement } from 'extra-dom'
 import { INestedMatcher, ITerminalMatcher, IReadonlyContext } from '@src/types'
 import { isArray, isString } from '@blackglory/types'
 import { concat } from '@utils/concat'
-import { merge } from '@utils/merge'
+import { mergeInPlace } from '@utils/merge-in-place'
 
 export function element(
   strings: TemplateStringsArray
@@ -32,7 +32,7 @@ export function element(...args:
     return function (this: IReadonlyContext, _element: Element) {
       const result = element(...matchers).call(this, _element)
       if (result) {
-        merge(this.collection, { [name]: _element })
+        mergeInPlace(this.collection, { [name]: _element })
       }
       return result
     }

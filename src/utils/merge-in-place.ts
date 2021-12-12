@@ -1,6 +1,6 @@
 import { isArray } from '@blackglory/types'
 
-export function merge<T>(
+export function mergeInPlace<T>(
   target: { [key: string]: T | T[] }
 , source: { [key: string]: T | T[] }
 ): void {

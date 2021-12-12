@@ -1,5 +1,5 @@
 import { INestedMatcher, ITerminalMatcher, IReadonlyContext } from '@src/types'
-import { isString } from '@blackglory/types'
+import { isArray, isString } from '@blackglory/types'
 import { concat } from '@utils/concat'
 import { isntTextNode } from 'extra-dom'
 import { merge } from '@utils/merge'
@@ -20,7 +20,7 @@ export function textNode(...args:
 | [name: string, ...matchers: Array<ITerminalMatcher<Node>>]
 | [...matchers: Array<ITerminalMatcher<Node>>]
 ) {
-  if (Array.isArray(args[0])) {
+  if (isArray(args[0])) {
     const [strings, ...values] =
       args as [strings: TemplateStringsArray, ...values: string[]]
     const name = concat(strings, values).join('')

@@ -525,19 +525,20 @@
   dependencies:
     justypes "^0.1.4"
 
-"@blackglory/types@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@blackglory/types/-/types-0.5.1.tgz#ef0290abd4b3c3e6a141ff45da6dc49bbb53d2f6"
-  integrity sha512-9bvd60w7CGPyFFcEYsqPu65+fj99Ga5TlgCZzsiP9A3nbP0+VR1WgUCaaGqmUZWg4fjuXbFWBAvdhNP2tNrX2g==
-  dependencies:
-    justypes "^0.1.5"
-
-"@blackglory/types@^0.5.2":
+"@blackglory/types@^0.5.1", "@blackglory/types@^0.5.2":
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/@blackglory/types/-/types-0.5.2.tgz#4747d650d8c1a707a3e86110fdaa0fde7e222a0c"
   integrity sha512-ChGzGwLl8BgpwdrlcafM/umpw7sFEan5ALhvoaOXVXZwo5KS1mOagTHMOFnQfGnlcc+R+VliSFyoiDLIUS2nIA==
   dependencies:
     justypes "^0.1.6"
+
+"@blackglory/types@^0.6.0":
+  version "0.6.4"
+  resolved "https://registry.yarnpkg.com/@blackglory/types/-/types-0.6.4.tgz#ba511c58d4a8cf321bfc34c4b3c94e8a9b3341bd"
+  integrity sha512-QtiPJllbKOXHbX9S/h2NsUbP+vgm6J5w2oQI4N4IuoTdzBbQJZNkcHTf2FeD/1yi/xhzEVdR0L4ZKfLlcmAJbw==
+  dependencies:
+    justypes "^0.1.6"
+    lodash.isplainobject "^4.0.6"
 
 "@commitlint/cli@^15.0.0":
   version "15.0.0"
@@ -2660,12 +2661,12 @@ extglob@^2.0.4:
     to-regex "^3.0.1"
 
 extra-dom@^0.4.4:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/extra-dom/-/extra-dom-0.4.4.tgz#1b0ecfdf2886e1b39a6df173cf2d584ada576412"
-  integrity sha512-zBCNCWYptggpY4QP0ptOD1Bun0ROT+huA8AQvgZW8rn09MWYWAryMc3YnTnIH4FNakCK85gywnNkVk8uFRUoHg==
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/extra-dom/-/extra-dom-0.4.5.tgz#d1b8f6a60ba12834e6b3574cbdb6280ae0c3290e"
+  integrity sha512-oAMnfE+2hH9WvzuZNbwNjKsBxphqa2AwAugYjpJrni2CTRNiod27nvp+rQyxIggRnen3J/nkeemLoQRGWKIT5g==
   dependencies:
     "@blackglory/errors" "^1.1.2"
-    "@blackglory/types" "^0.5.2"
+    "@blackglory/types" "^0.6.0"
     iterable-operator "^0.14.4"
 
 extra-filesystem@^0.3.10:
@@ -4360,6 +4361,11 @@ lodash.ismatch@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.ismatch/-/lodash.ismatch-4.4.0.tgz#756cb5150ca3ba6f11085a78849645f188f85f37"
   integrity sha1-dWy1FQyjum8RCFp4hJZF8Yj4Xzc=
+
+lodash.isplainobject@^4.0.6:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
+  integrity sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs=
 
 lodash.memoize@4.x:
   version "4.1.2"

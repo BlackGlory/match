@@ -7,7 +7,9 @@
     "css",
     "xpath"
   ],
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "repository": "git@github.com:BlackGlory/match.git",
@@ -32,7 +34,6 @@
     }
   },
   "devDependencies": {
-    "@blackglory/jest-matchers": "^0.2.1",
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
     "@types/jest": "^27.0.3",

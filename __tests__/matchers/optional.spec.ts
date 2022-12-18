@@ -2,7 +2,6 @@ import { parse } from 'extra-dom'
 import { optional } from '@matchers/optional'
 import { createContext } from '@test/utils'
 import { toArray } from 'iterable-operator'
-import '@blackglory/jest-matchers'
 
 describe('optional<T extends Node>(matcher: INestedMatcher<T> | ITerminalMatcher<T>): ISkipMatcher<T> ', () => {
   describe('match', () => {
@@ -12,11 +11,10 @@ describe('optional<T extends Node>(matcher: INestedMatcher<T> | ITerminalMatcher
       const node = parse('test')[0]
 
       const match = optional(matcher)
-      const result = match.call(context, node) as Iterable<number>
-      const arrResult = toArray(result)
+      const iter = match.call(context, node) as Iterable<number>
+      const result = toArray(iter)
 
-      expect(result).toBeIterable()
-      expect(arrResult).toEqual([1, 0])
+      expect(result).toEqual([1, 0])
       expect(matcher).toBeCalledWith(node)
     })
   })
@@ -28,11 +26,10 @@ describe('optional<T extends Node>(matcher: INestedMatcher<T> | ITerminalMatcher
       const node = parse('test')[0]
 
       const match = optional(matcher)
-      const result = match.call(context, node) as Iterable<number>
-      const arrResult = toArray(result)
+      const iter = match.call(context, node) as Iterable<number>
+      const result = toArray(iter)
 
-      expect(result).toBeIterable()
-      expect(arrResult).toEqual([0])
+      expect(result).toEqual([0])
       expect(matcher).toBeCalledWith(node)
     })
   })

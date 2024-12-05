@@ -1,8 +1,8 @@
 import { isArray } from '@blackglory/types'
 
 export function mergeInPlace<T>(
-  target: { [key: string]: T | T[] }
-, source: { [key: string]: T | T[] }
+  target: Record<string, T | T[]>
+, source: Record<string, T | T[]>
 ): void {
   for (const [key, value] of Object.entries(source)) {
     if (target[key]) {

@@ -1,11 +1,6 @@
 import { mergeInPlace } from '@utils/merge-in-place'
 
-describe(`
-  mergeInPlace<T>(
-    target: { [key: string]: T | T[] }
-  , source: { [key: string]: T | T[] }
-  ): void
-`, () => {
+describe('mergeInPlace', () => {
   test('new name', () => {
     const target = { hello: 'hello' }
     const source = { world: 'world' }

@@ -1,9 +1,7 @@
 # match
-
 A module for matching elements from pages.
 
 ## Install
-
 ```sh
 npm install --save @blackglory/match
 # or
@@ -11,7 +9,6 @@ yarn add @blackglory/match
 ```
 
 ## Usage
-
 ```ts
 import { matchElement, element, css, childNodes, textNode, children, multiple } from '@blackglory/match'
 
@@ -39,7 +36,6 @@ const result = matchElement(
 ```
 
 ## API
-
 ```ts
 interface IContext {
   readonly document: Document
@@ -79,7 +75,6 @@ type ISkipMatcher<T extends Node> = (
 ```
 
 ### match
-
 ```ts
 function match(
   this: void | Document
@@ -89,7 +84,6 @@ function match(
 ```
 
 ### matchElement
-
 ```ts
 function matchElement(
   this: void | Document
@@ -99,9 +93,7 @@ function matchElement(
 ```
 
 ### Matchers
-
 #### anyOf
-
 ```ts
 function anyOf<T extends Node>(
   ...matchers: [
@@ -113,39 +105,42 @@ function anyOf<T extends Node>(
 ```
 
 #### childNodes
-
 ```ts
 function childNodes(...matchers: Array<IMatcher<Node>>): INestedMatcher<Node>
 ```
 
 #### children
-
 ```ts
 function children(...matchers: Array<IMatcher<Element>>): INestedMatcher<Element>
 ```
 
 #### css
-
 ```ts
-function css(strings: TemplateStringsArray, ...values: string[]): ITerminalMatcher<Element>
+function css(
+  strings: TemplateStringsArray
+, ...values: string[]
+): ITerminalMatcher<Element>
 function css(selector: string): ITerminalMatcher<Element>
 ```
 
 #### element
-
 ```ts
 function element(
   strings: TemplateStringsArray
 , ...values: string[]
-): (...matchers: Array<INestedMatcher<Element> | ITerminalMatcher<Element>>) => INestedMatcher<Node>
-function element(name: string, ...matchers: Array<INestedMatcher<Element>>):
-  INestedMatcher<Node>
-function element(...matchers: Array<INestedMatcher<Element>>):
-  INestedMatcher<Node>
+): (
+  ...matchers: Array<INestedMatcher<Element> | ITerminalMatcher<Element>>
+) => INestedMatcher<Node>
+function element(
+  name: string
+, ...matchers: Array<INestedMatcher<Element>>
+): INestedMatcher<Node>
+function element(
+  ...matchers: Array<INestedMatcher<Element>>
+): INestedMatcher<Node>
 ```
 
 #### multiple
-
 ```ts
 interface IMultipleOptions {
   greedy: boolean
@@ -159,12 +154,13 @@ function multiple<T extends Node>(
 ```
 
 #### node
-
 ```ts
 function node(
   strings: TemplateStringsArray
 , ...values: string[]
-): (...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>) => INestedMatcher<Node>
+): (
+  ...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>
+) => INestedMatcher<Node>
 function node(
   name: string
 , ...matchers: Array<INestedMatcher<Node> | ITerminalMatcher<Node>>
@@ -175,7 +171,6 @@ function node(
 ```
 
 #### optional
-
 ```ts
 function optional<T extends Node>(
   matcher: INestedMatcher<T> | ITerminalMatcher<T>
@@ -183,7 +178,6 @@ function optional<T extends Node>(
 ```
 
 #### repeat
-
 ```ts
 function repeat<T extends Node>(
   times: number
@@ -192,7 +186,6 @@ function repeat<T extends Node>(
 ```
 
 #### tap
-
 ```ts
 function tap<T extends Node, U extends ReturnType<IMatcher<any>>>(
   matcher: (this: IReadonlyContext, node: T) => U
@@ -201,7 +194,6 @@ function tap<T extends Node, U extends ReturnType<IMatcher<any>>>(
 ```
 
 #### textContentEquals
-
 ```ts
 interface ITextContentEqualsOptions {
   caseSensitive?: boolean
@@ -218,14 +210,13 @@ function textContentEquals(
 ```
 
 #### textContentIncludes
-
 ```ts
 interface ITextContentIncludesOptions {
   caseSensitive?: boolean
   trim?: boolean
 }
 
-export function textContentIncludes(
+function textContentIncludes(
   searchString: string
 , {
     caseSensitive = true
@@ -235,20 +226,18 @@ export function textContentIncludes(
 ```
 
 #### textContentMatches
-
 ```ts
 interface ITextContentMatchesOptions {
   trim?: boolean
 }
 
-export function textContentMatches(
+function textContentMatches(
   pattern: RegExp
 , { trim = false }: ITextContentMatchesOptions = {}
 ): ITerminalMatcher<Node>
 ```
 
 #### textNode
-
 ```ts
 function textNode(
   strings: TemplateStringsArray
@@ -264,7 +253,6 @@ function textNode(
 ```
 
 #### xpath
-
 ```ts
 function xpath(
   strings: TemplateStringsArray

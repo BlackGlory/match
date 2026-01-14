@@ -1,4 +1,5 @@
-import { mergeInPlace } from '@utils/merge-in-place'
+import { describe, test, expect } from 'vitest'
+import { mergeInPlace } from '@utils/merge-in-place.js'
 
 describe('mergeInPlace', () => {
   test('new name', () => {

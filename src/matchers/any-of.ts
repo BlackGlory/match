@@ -1,4 +1,4 @@
-import { ITerminalMatcher, INestedMatcher, IReadonlyContext } from '@src/types'
+import { ITerminalMatcher, INestedMatcher, IReadonlyContext } from '@src/types.js'
 
 export function anyOf<T extends Node>(
   ...matchers: [

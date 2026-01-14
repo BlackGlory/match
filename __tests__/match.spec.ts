@@ -1,5 +1,6 @@
-import { parse } from 'extra-dom'
-import { match } from '@src/match'
+import { describe, it, expect, vi } from 'vitest'
+import { parseNodes } from 'extra-dom'
+import { match } from '@src/match.js'
 
 describe(`
   match(
@@ -10,9 +11,9 @@ describe(`
 `, () => {
   describe('match', () => {
     it('return { [name: string]: Node | Node[] }', () => {
-      const matcher1 = jest.fn().mockReturnValue(true)
-      const matcher2 = jest.fn().mockReturnValue(true)
-      const [node1, node2] = parse('<div></div><div></div>')
+      const matcher1 = vi.fn().mockReturnValue(true)
+      const matcher2 = vi.fn().mockReturnValue(true)
+      const [node1, node2] = parseNodes('<div></div><div></div>')
 
       const result = match(node1, matcher1, matcher2)
 
@@ -24,9 +25,9 @@ describe(`
 
   describe('does not match', () => {
     it('return null', () => {
-      const matcher1 = jest.fn().mockReturnValue(false)
-      const matcher2 = jest.fn().mockReturnValue(true)
-      const [node] = parse('<div></div><div></div>')
+      const matcher1 = vi.fn().mockReturnValue(false)
+      const matcher2 = vi.fn().mockReturnValue(true)
+      const [node] = parseNodes('<div></div><div></div>')
 
       const result = match(node, matcher1, matcher2)
 

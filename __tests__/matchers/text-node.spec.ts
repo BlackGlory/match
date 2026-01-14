@@ -1,13 +1,14 @@
-import { parse } from 'extra-dom'
-import { textNode } from '@matchers/text-node'
-import { createContext } from '@test/utils'
+import { describe, it, expect, vi } from 'vitest'
+import { parseNodes } from 'extra-dom'
+import { textNode } from '@matchers/text-node.js'
+import { createContext } from '@test/utils.js'
 
 describe('textNode(...matchers: Array<INestedMatcher<Node>>): INestedMatcher<Node>', () => {
   describe('node is a text node', () => {
     it('return true', () => {
       const context = createContext()
-      const node = parse('text')[0]
-      const matcher = jest.fn().mockReturnValue(true)
+      const node = parseNodes('text')[0]
+      const matcher = vi.fn().mockReturnValue(true)
 
       const match = textNode(matcher)
       const result = match.call(context, node)
@@ -21,8 +22,8 @@ describe('textNode(...matchers: Array<INestedMatcher<Node>>): INestedMatcher<Nod
   describe('node is not a text node', () => {
     it('return false', () => {
       const context = createContext()
-      const node = parse('<div></div>')[0]
-      const matcher = jest.fn().mockReturnValue(true)
+      const node = parseNodes('<div></div>')[0]
+      const matcher = vi.fn().mockReturnValue(true)
 
       const match = textNode(matcher)
       const result = match.call(context, node)
@@ -38,7 +39,7 @@ describe('textNode(name: string, ...matchers: Array<INestedMatcher<Node>>): INes
   describe('match', () => {
     it('return true and save node into collection', () => {
       const context = createContext()
-      const node = parse('text')[0]
+      const node = parseNodes('text')[0]
 
       const match = textNode('test')
       const result = match.call(context, node)
@@ -51,7 +52,7 @@ describe('textNode(name: string, ...matchers: Array<INestedMatcher<Node>>): INes
   describe('does not match', () => {
     it('return false', () => {
       const context = createContext()
-      const node = parse('<div></div>')[0]
+      const node = parseNodes('<div></div>')[0]
 
       const match = textNode('test')
       const result = match.call(context, node)

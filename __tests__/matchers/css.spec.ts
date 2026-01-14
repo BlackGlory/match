@@ -1,12 +1,13 @@
-import { parse } from 'extra-dom'
-import { css } from '@matchers/css'
-import { createContext } from '@test/utils'
+import { describe, it, expect } from 'vitest'
+import { parseNodes } from 'extra-dom'
+import { css } from '@matchers/css.js'
+import { createContext } from '@test/utils.js'
 
 describe('css(selector: string): ITerminalMatcher<Element>', () => {
   describe('match', () => {
     it('return true', () => {
       const context = createContext()
-      const node = parse('<div id="test"></div>')[0] as Element
+      const node = parseNodes('<div id="test"></div>')[0] as Element
 
       const match = css('#test')
       const result = match.call(context, node)
@@ -18,7 +19,7 @@ describe('css(selector: string): ITerminalMatcher<Element>', () => {
   describe('does not match', () => {
     it('return false', () => {
       const context = createContext()
-      const node = parse('<div></div>')[0] as Element
+      const node = parseNodes('<div></div>')[0] as Element
 
       const match = css('#test')
       const result = match.call(context, node)

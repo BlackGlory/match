@@ -1,4 +1,4 @@
-import { IReadonlyContext } from '@src/types'
+import { IReadonlyContext } from '@src/types.js'
 import { nextSibling } from 'extra-dom'
 
 export function createContext(): IReadonlyContext {

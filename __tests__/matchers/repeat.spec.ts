@@ -1,6 +1,7 @@
-import { parse } from 'extra-dom'
-import { repeat } from '@matchers/repeat'
-import { createContext } from '@test/utils'
+import { describe, it, test, expect, vi } from 'vitest'
+import { parseNodes } from 'extra-dom'
+import { repeat } from '@matchers/repeat.js'
+import { createContext } from '@test/utils.js'
 
 describe(`
   repeat<T extends Node>(
@@ -11,8 +12,8 @@ describe(`
   describe('match', () => {
     it('return number', () => {
       const context = createContext()
-      const matcher = jest.fn().mockReturnValue(true)
-      const [node1, node2] = parse('<div></div><div></div>')
+      const matcher = vi.fn().mockReturnValue(true)
+      const [node1, node2] = parseNodes('<div></div><div></div>')
 
       const match = repeat(2, matcher)
       const result = match.call(context, node1)
@@ -27,8 +28,8 @@ describe(`
   describe('not match', () => {
     it('return false', () => {
       const context = createContext()
-      const matcher = jest.fn().mockReturnValueOnce(true).mockReturnValueOnce(false)
-      const [node1, node2] = parse('<div></div><div></div>')
+      const matcher = vi.fn().mockReturnValueOnce(true).mockReturnValueOnce(false)
+      const [node1, node2] = parseNodes('<div></div><div></div>')
 
       const match = repeat(2, matcher)
       const result = match.call(context, node1)
@@ -42,8 +43,8 @@ describe(`
 
   test('edge: number = 0', () => {
     const context = createContext()
-    const matcher = jest.fn().mockReturnValue(true)
-    const [node] = parse('<div></div><div></div>')
+    const matcher = vi.fn().mockReturnValue(true)
+    const [node] = parseNodes('<div></div><div></div>')
 
     const match = repeat(0, matcher)
     const result = match.call(context, node)

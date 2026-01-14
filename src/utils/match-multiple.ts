@@ -1,5 +1,5 @@
 import { countup } from 'extra-generator'
-import { INestedMatcher, ITerminalMatcher, IReadonlyContext } from '@src/types'
+import { INestedMatcher, ITerminalMatcher, IReadonlyContext } from '@src/types.js'
 
 /**
  * @returns {number} 返回值为成功匹配的元素个数, 当此值等于ubound时, 代表匹配成功.

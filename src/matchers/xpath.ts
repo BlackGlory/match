@@ -1,7 +1,7 @@
-import { ITerminalMatcher, IReadonlyContext } from '@src/types'
-import { isString } from '@blackglory/types'
-import { concat } from '@utils/concat'
-import { assert } from '@blackglory/errors'
+import { ITerminalMatcher, IReadonlyContext } from '@src/types.js'
+import { isString } from '@blackglory/prelude'
+import { concat } from '@utils/concat.js'
+import { assert } from '@blackglory/prelude'
 
 const UNORDERED_NODE_ITERATOR_TYPE =
   'XPathResult' in globalThis

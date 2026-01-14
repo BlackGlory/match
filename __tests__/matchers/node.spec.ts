@@ -1,13 +1,14 @@
-import { parse } from 'extra-dom'
-import { node } from '@matchers/node'
-import { createContext } from '@test/utils'
+import { describe, it, expect, vi } from 'vitest'
+import { parseNodes } from 'extra-dom'
+import { node } from '@matchers/node.js'
+import { createContext } from '@test/utils.js'
 
 describe('textNode(...matchers: Array<INestedMatcher<Node>>): INestedMatcher<Node>', () => {
   describe('match', () => {
     it('return true', () => {
       const context = createContext()
-      const _node = parse('text')[0]
-      const matcher = jest.fn().mockReturnValue(true)
+      const _node = parseNodes('text')[0]
+      const matcher = vi.fn().mockReturnValue(true)
 
       const match = node(matcher)
       const result = match.call(context, _node)
@@ -21,8 +22,8 @@ describe('textNode(...matchers: Array<INestedMatcher<Node>>): INestedMatcher<Nod
   describe('does not match', () => {
     it('return false', () => {
       const context = createContext()
-      const _node = parse('text')[0]
-      const matcher = jest.fn().mockReturnValue(false)
+      const _node = parseNodes('text')[0]
+      const matcher = vi.fn().mockReturnValue(false)
 
       const match = node(matcher)
       const result = match.call(context, _node)
@@ -38,8 +39,8 @@ describe('textNode(name: string, ...matchers: Array<INestedMatcher<Node>>): INes
   describe('match', () => {
     it('return true and save node into collection', () => {
       const context = createContext()
-      const _node = parse('text')[0]
-      const matcher = jest.fn().mockReturnValue(true)
+      const _node = parseNodes('text')[0]
+      const matcher = vi.fn().mockReturnValue(true)
 
       const match = node('test', matcher)
       const result = match.call(context, _node)
@@ -51,8 +52,8 @@ describe('textNode(name: string, ...matchers: Array<INestedMatcher<Node>>): INes
   describe('does not match', () => {
     it('return false', () => {
       const context = createContext()
-      const _node = parse('text')[0]
-      const matcher = jest.fn().mockReturnValue(false)
+      const _node = parseNodes('text')[0]
+      const matcher = vi.fn().mockReturnValue(false)
 
       const match = node('test', matcher)
       const result = match.call(context, _node)

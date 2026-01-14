@@ -1,6 +1,7 @@
-import { parse } from 'extra-dom'
-import { multiple } from '@matchers/multiple'
-import { createContext } from '@test/utils'
+import { describe, test, it, expect, vi } from 'vitest'
+import { parseNodes } from 'extra-dom'
+import { multiple } from '@matchers/multiple.js'
+import { createContext } from '@test/utils.js'
 import { toArray } from 'iterable-operator'
 
 describe(`
@@ -13,8 +14,8 @@ describe(`
   describe('greedy = true', () => {
     test('edge: min = 0, max = Infinity', () => {
       const context = createContext()
-      const matcher = jest.fn().mockReturnValue(true)
-      const [node] = parse('<div></div><div></div>')
+      const matcher = vi.fn().mockReturnValue(true)
+      const [node] = parseNodes('<div></div><div></div>')
 
       const match = multiple([0, Infinity], matcher, { greedy: true })
       const iter = match.call(context, node) as Iterable<number>
@@ -26,8 +27,8 @@ describe(`
     describe('match', () => {
       it('return number', () => {
         const context = createContext()
-        const matcher = jest.fn().mockReturnValue(true)
-        const [node] = parse('<div></div><div></div>')
+        const matcher = vi.fn().mockReturnValue(true)
+        const [node] = parseNodes('<div></div><div></div>')
 
         const match = multiple([1, 2], matcher, { greedy: true })
         const iter = match.call(context, node) as Iterable<number>
@@ -40,8 +41,8 @@ describe(`
     describe('does not match', () => {
       it('return false', () => {
         const context = createContext()
-        const matcher = jest.fn().mockReturnValue(false)
-        const [node] = parse('<div></div><div></div>')
+        const matcher = vi.fn().mockReturnValue(false)
+        const [node] = parseNodes('<div></div><div></div>')
 
         const match = multiple([1, 2], matcher, { greedy: true })
         const iter = match.call(context, node) as Iterable<number>
@@ -55,8 +56,8 @@ describe(`
   describe('greedy = false', () => {
     test('edge: min = 0, max = Infinity', () => {
       const context = createContext()
-      const matcher = jest.fn().mockReturnValue(true)
-      const [node] = parse('<div></div><div></div>')
+      const matcher = vi.fn().mockReturnValue(true)
+      const [node] = parseNodes('<div></div><div></div>')
 
       const match = multiple([0, Infinity], matcher, { greedy: false })
       const iter = match.call(context, node) as Iterable<number>
@@ -68,8 +69,8 @@ describe(`
     describe('match', () => {
       it('return number', () => {
         const context = createContext()
-        const matcher = jest.fn().mockReturnValue(true)
-        const [node] = parse('<div></div><div></div>')
+        const matcher = vi.fn().mockReturnValue(true)
+        const [node] = parseNodes('<div></div><div></div>')
 
         const match = multiple([1, 2], matcher, { greedy: false })
         const iter = match.call(context, node) as Iterable<number>
@@ -82,8 +83,8 @@ describe(`
     describe('not match', () => {
       it('return false', () => {
         const context = createContext()
-        const matcher = jest.fn().mockReturnValue(false)
-        const [node] = parse('<div></div><div></div>')
+        const matcher = vi.fn().mockReturnValue(false)
+        const [node] = parseNodes('<div></div><div></div>')
 
         const match = multiple([1, 2], matcher, { greedy: false })
         const iter = match.call(context, node) as Iterable<number>

@@ -1,5 +1,5 @@
-import { IMatcher, IReadonlyContext } from '@src/types'
-import { isBoolean, isNumber, isIterable } from '@blackglory/types'
+import { IMatcher, IReadonlyContext } from '@src/types.js'
+import { isBoolean, isNumber, isIterable } from '@blackglory/prelude'
 
 export function matchOneByOne<T extends Node>(
   context: IReadonlyContext

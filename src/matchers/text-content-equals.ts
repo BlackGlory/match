@@ -1,5 +1,5 @@
-import { ITerminalMatcher } from '@src/types'
-import { isNull } from '@blackglory/types'
+import { ITerminalMatcher } from '@src/types.js'
+import { isNull } from '@blackglory/prelude'
 
 interface ITextContentEqualsOptions {
   caseSensitive?: boolean

@@ -1,5 +1,6 @@
-import { xpath } from '@matchers/xpath'
-import { createContext } from '@test/utils'
+import { describe, it, expect } from 'vitest'
+import { xpath } from '@matchers/xpath.js'
+import { createContext } from '@test/utils.js'
 
 describe('xpath(this: IDocumentContext<Node>, experssion: string): ITerminalMatcher<Node>', () => {
   describe('match', () => {

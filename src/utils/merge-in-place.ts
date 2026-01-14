@@ -1,4 +1,4 @@
-import { isArray } from '@blackglory/types'
+import { isArray } from '@blackglory/prelude'
 
 export function mergeInPlace<T>(
   target: Record<string, T | T[]>

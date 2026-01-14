@@ -1,8 +1,9 @@
-import { parse, getBySelector, getAllBySelector } from 'extra-dom'
-import { matchElement, element, css, childNodes, children, textNode, multiple, optional } from '@src/index'
+import { describe, test, expect } from 'vitest'
+import { parseNodes, getBySelector, getAllBySelector } from 'extra-dom'
+import { matchElement, element, css, childNodes, children, textNode, multiple, optional } from '@src/index.js'
 
 test('collect nodes', () => {
-  const root = parse(`
+  const root = parseNodes(`
     <div>
       <header>Heading</header>
       <article>
@@ -41,7 +42,7 @@ test('collect nodes', () => {
 })
 
 test('optional', () => {
-  const root = parse(`
+  const root = parseNodes(`
     <div>
       <header>Header</header>
       <article>Article</article>
@@ -68,7 +69,7 @@ test('optional', () => {
 describe('multiple + optional', () => {
   describe('greedy = true', () => {
     test('br', () => {
-      const root = parse(`
+      const root = parseNodes(`
         <div>
           <header>Header</header>
           <article>Article</article>
@@ -92,7 +93,7 @@ describe('multiple + optional', () => {
     })
 
     test('no br', () => {
-      const root = parse(`
+      const root = parseNodes(`
         <div>
           <header>Header</header>
           <article>Article</article>
@@ -116,7 +117,7 @@ describe('multiple + optional', () => {
 
   describe('greedy = false', () => {
     test('br', () => {
-      const root = parse(`
+      const root = parseNodes(`
         <div>
           <header>Header</header>
           <article>Article</article>
@@ -142,7 +143,7 @@ describe('multiple + optional', () => {
     })
 
     test('no br', () => {
-      const root = parse(`
+      const root = parseNodes(`
         <div>
           <header>Header</header>
           <article>Article</article>

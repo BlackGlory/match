@@ -1,7 +1,7 @@
 import { isDocument } from 'extra-dom'
-import { IMatcher, IContext } from './types'
-import { matchOneByOne } from '@utils/match-one-by-one'
-import { nextElementSibling } from '@utils/next-element-sibling'
+import { IMatcher, IContext } from './types.js'
+import { matchOneByOne } from '@utils/match-one-by-one.js'
+import { nextElementSibling } from '@utils/next-element-sibling.js'
 
 export function matchElement(
   this: void | Document

@@ -1,4 +1,4 @@
-import { IReadonlyContext, IMatcher } from '@src/types'
+import { IReadonlyContext, IMatcher } from '@src/types.js'
 
 export function tap<T extends Node, U extends ReturnType<IMatcher<any>>>(
   matcher: (this: IReadonlyContext, node: T) => U

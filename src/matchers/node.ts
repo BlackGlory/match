@@ -1,7 +1,7 @@
-import { INestedMatcher, ITerminalMatcher, IReadonlyContext } from '@src/types'
-import { isArray, isString } from '@blackglory/types'
-import { concat } from '@utils/concat'
-import { mergeInPlace } from '@utils/merge-in-place'
+import { INestedMatcher, ITerminalMatcher, IReadonlyContext } from '@src/types.js'
+import { isArray, isString } from '@blackglory/prelude'
+import { concat } from '@utils/concat.js'
+import { mergeInPlace } from '@utils/merge-in-place.js'
 
 export function node(
   strings: TemplateStringsArray

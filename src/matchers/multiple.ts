@@ -1,7 +1,7 @@
-import { INestedMatcher, ITerminalMatcher, ISkipMatcher, IReadonlyContext } from '@src/types'
+import { INestedMatcher, ITerminalMatcher, ISkipMatcher, IReadonlyContext } from '@src/types.js'
 import { countup } from 'extra-generator'
-import { assert } from '@blackglory/errors'
-import { matchMultiple } from '@utils/match-multiple'
+import { assert } from '@blackglory/prelude'
+import { matchMultiple } from '@utils/match-multiple.js'
 
 export enum Range {
   Min = 0

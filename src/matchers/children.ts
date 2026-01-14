@@ -1,7 +1,7 @@
-import { IMatcher, INestedMatcher, IReadonlyContext } from '@src/types'
-import { matchOneByOne } from '@utils/match-one-by-one'
-import { mergeInPlace } from '@utils/merge-in-place'
-import { nextElementSibling } from '@utils/next-element-sibling'
+import { IMatcher, INestedMatcher, IReadonlyContext } from '@src/types.js'
+import { matchOneByOne } from '@utils/match-one-by-one.js'
+import { mergeInPlace } from '@utils/merge-in-place.js'
+import { nextElementSibling } from '@utils/next-element-sibling.js'
 
 export function children(
   ...matchers: Array<IMatcher<Element>>

@@ -1,6 +1,7 @@
-import { parse } from 'extra-dom'
-import { textContentMatches } from '@matchers/text-content-matches'
-import { createContext } from '@test/utils'
+import { describe, it, expect } from 'vitest'
+import { parseNodes } from 'extra-dom'
+import { textContentMatches } from '@matchers/text-content-matches.js'
+import { createContext } from '@test/utils.js'
 
 describe('textContentMatches(pattern: RegExp): ITerminalMatcher<Node>', () => {
   describe('trim', () => {
@@ -8,7 +9,7 @@ describe('textContentMatches(pattern: RegExp): ITerminalMatcher<Node>', () => {
       describe('match', () => {
         it('return true', () => {
           const context = createContext()
-          const node = parse('<div> test </div>')[0] as Element
+          const node = parseNodes('<div> test </div>')[0] as Element
 
           const match = textContentMatches(/^test$/, { trim: true })
           const result = match.call(context, node)
@@ -20,7 +21,7 @@ describe('textContentMatches(pattern: RegExp): ITerminalMatcher<Node>', () => {
       describe('does not match', () => {
         it('return false', () => {
           const context = createContext()
-          const node = parse('<div> test </div>')[0] as Element
+          const node = parseNodes('<div> test </div>')[0] as Element
 
           const match = textContentMatches(/^ test $/, { trim: true })
           const result = match.call(context, node)
@@ -34,7 +35,7 @@ describe('textContentMatches(pattern: RegExp): ITerminalMatcher<Node>', () => {
       describe('match', () => {
         it('return true', () => {
           const context = createContext()
-          const node = parse('<div>test</div>')[0] as Element
+          const node = parseNodes('<div>test</div>')[0] as Element
 
           const match = textContentMatches(/^test$/, { trim: false })
           const result = match.call(context, node)
@@ -46,7 +47,7 @@ describe('textContentMatches(pattern: RegExp): ITerminalMatcher<Node>', () => {
       describe('does not match', () => {
         it('return false', () => {
           const context = createContext()
-          const node = parse('<div>TEST</div>')[0] as Element
+          const node = parseNodes('<div>TEST</div>')[0] as Element
 
           const match = textContentMatches(/^test$/, { trim: false })
           const result = match.call(context, node)

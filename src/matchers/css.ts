@@ -1,6 +1,6 @@
-import { concat } from '@utils/concat'
-import { ITerminalMatcher } from '@src/types'
-import { isString } from '@blackglory/types'
+import { concat } from '@utils/concat.js'
+import { ITerminalMatcher } from '@src/types.js'
+import { isString } from '@blackglory/prelude'
 
 export function css(
   strings: TemplateStringsArray

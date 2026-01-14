@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/BlackGlory/match/compare/v0.3.6...v0.4.0) (2026-01-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* - CommonJS => ESM
+- Node.js v14 => v22
+
+* upgrade dependencies ([a9c105e](https://github.com/BlackGlory/match/commit/a9c105e625276d3f5714ba0707c2432326c6f53d))
+
 ### [0.3.6](https://github.com/BlackGlory/match/compare/v0.3.5...v0.3.6) (2023-06-11)
 
 

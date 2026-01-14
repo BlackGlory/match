@@ -2,7 +2,7 @@ import { describe, test, it, expect, vi } from 'vitest'
 import { parseNodes } from 'extra-dom'
 import { multiple } from '@matchers/multiple.js'
 import { createContext } from '@test/utils.js'
-import { toArray } from 'iterable-operator'
+import { toArray } from '@blackglory/prelude'
 
 describe(`
   multiple<T extends Node>(

@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest'
 import { parseNodes } from 'extra-dom'
 import { optional } from '@matchers/optional.js'
 import { createContext } from '@test/utils.js'
-import { toArray } from 'iterable-operator'
+import { toArray } from '@blackglory/prelude'
 
 describe('optional<T extends Node>(matcher: INestedMatcher<T> | ITerminalMatcher<T>): ISkipMatcher<T> ', () => {
   describe('match', () => {

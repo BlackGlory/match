@@ -11,9 +11,21 @@ yarn add @blackglory/match
 ## Usage
 ```ts
 import { matchElement, element, css, childNodes, textNode, children, multiple } from '@blackglory/match'
+import { parseNodes, getBySelector } from 'extra-dom'
+
+const div = parseNodes(`
+  <div>
+    <header>Heading</header>
+    <article>
+      <p>Paragraph1</p>
+      <p>Paragraph2</p>
+    </article>
+  </div>
+`.trim())[0] as Element
+const header = getBySelector.call(div, 'header')
 
 const result = matchElement(
-  node
+  header
 , element(
     css`header`
   , childNodes(
@@ -21,7 +33,7 @@ const result = matchElement(
     )
   )
 , element(
-    css`section`
+    css`article`
   , children(
       multiple([1, Infinity], element(
         css`p`
@@ -32,7 +44,13 @@ const result = matchElement(
     )
   )
 )
-// { heading: Text, paragraph: [ Text, Text ] }
+// {
+//   heading: [object Text "Heading"]
+// , paragraph: [
+//     [object Text "Paragraph1"]
+//   , [object Text "Paragraph2"]
+//   ]
+// }
 ```
 
 ## API

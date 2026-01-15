@@ -1,6 +1,6 @@
 import { INestedMatcher, ITerminalMatcher, IReadonlyContext } from '@src/types.js'
 import { isArray, isString } from '@blackglory/prelude'
-import { concat } from '@utils/concat.js'
+import { concat } from 'extra-tags'
 import { isntTextNode } from 'extra-dom'
 import { mergeInPlace } from '@utils/merge-in-place.js'
 
@@ -23,7 +23,7 @@ export function textNode(...args:
   if (isArray(args[0])) {
     const [strings, ...values] =
       args as [strings: TemplateStringsArray, ...values: string[]]
-    const name = concat(strings, values).join('')
+    const name = concat(strings, ...values)
 
     return (...matchers: Array<ITerminalMatcher<Node>>) => textNode(name, ...matchers)
   }

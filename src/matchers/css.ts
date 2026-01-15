@@ -1,4 +1,4 @@
-import { concat } from '@utils/concat.js'
+import { concat } from 'extra-tags'
 import { ITerminalMatcher } from '@src/types.js'
 import { isString } from '@blackglory/prelude'
 
@@ -17,7 +17,7 @@ export function css(...args:
     return (element: Element) => element.matches(selector)
   } else {
     const [strings, ...values] = args
-    const selector = concat(strings, values).join('')
+    const selector = concat(strings, ...values)
 
     return css(selector)
   }

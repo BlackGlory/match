@@ -1,6 +1,6 @@
 import { ITerminalMatcher, IReadonlyContext } from '@src/types.js'
 import { isString } from '@blackglory/prelude'
-import { concat } from '@utils/concat.js'
+import { concat } from 'extra-tags'
 import { assert } from '@blackglory/prelude'
 
 const UNORDERED_NODE_ITERATOR_TYPE =
@@ -31,7 +31,7 @@ export function xpath(...args:
     }
   } else {
     const [strings, ...values] = args
-    const expression = concat(strings, values).join('')
+    const expression = concat(strings, ...values)
 
     return xpath(expression)
   }

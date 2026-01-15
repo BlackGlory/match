@@ -1,7 +1,7 @@
 import { isntElement } from 'extra-dom'
 import { INestedMatcher, ITerminalMatcher, IReadonlyContext } from '@src/types.js'
 import { isArray, isString } from '@blackglory/prelude'
-import { concat } from '@utils/concat.js'
+import { concat } from 'extra-tags'
 import { mergeInPlace } from '@utils/merge-in-place.js'
 
 export function element(
@@ -20,7 +20,7 @@ export function element(...args:
   if (isArray(args[0])) {
     const [strings, ...values] =
       args as [strings: TemplateStringsArray, ...values: string[]]
-    const name = concat(strings, values).join('')
+    const name = concat(strings, ...values)
 
     return (...matchers: Array<INestedMatcher<Element> | ITerminalMatcher<Element>>) => element(name, ...matchers)
   }

@@ -9,6 +9,46 @@ yarn add @blackglory/match
 ```
 
 ## Usage
+### Match only
+```ts
+import { matchElement, element, css, childNodes, textNode, children, multiple } from '@blackglory/match'
+import { parseNodes, getBySelector } from 'extra-dom'
+
+const div = parseNodes(`
+  <div>
+    <header>Heading</header>
+    <article>
+      <p>Paragraph1</p>
+      <p>Paragraph2</p>
+    </article>
+  </div>
+`.trim())[0] as Element
+const header = getBySelector.call(div, 'header')
+
+const result = matchElement(
+  header
+, element(
+    css`header`
+  , childNodes(
+      textNode()
+    )
+  )
+, element(
+    css`article`
+  , children(
+      multiple([1, Infinity], element(
+        css`p`
+      , childNodes(
+          textNode()
+        )
+      ))
+    )
+  )
+)
+// {}
+```
+
+### Match and collect nodes
 ```ts
 import { matchElement, element, css, childNodes, textNode, children, multiple } from '@blackglory/match'
 import { parseNodes, getBySelector } from 'extra-dom'

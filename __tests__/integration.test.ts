@@ -2,7 +2,7 @@ import { describe, test, expect } from 'vitest'
 import { parseNodes, getBySelector, getAllBySelector } from 'extra-dom'
 import { matchElement, element, css, childNodes, children, textNode, multiple, optional } from '@src/index.js'
 
-test('collect nodes', () => {
+test('match with multiple matchers', () => {
   const root = parseNodes(`
     <div>
       <header>Heading</header>
@@ -41,7 +41,7 @@ test('collect nodes', () => {
   })
 })
 
-test('optional', () => {
+test('match with optional matchers', () => {
   const root = parseNodes(`
     <div>
       <header>Header</header>
@@ -66,7 +66,7 @@ test('optional', () => {
   })
 })
 
-describe('multiple + optional', () => {
+describe('match with multiple matchers and optional matchers', () => {
   describe('greedy = true', () => {
     test('br', () => {
       const root = parseNodes(`

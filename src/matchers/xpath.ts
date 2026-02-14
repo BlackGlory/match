@@ -21,7 +21,7 @@ export function xpath(...args:
 ): ITerminalMatcher<Node> {
   if (isString(args[0])) {
     const [expression] = args
-    assert(expression.startsWith('//*'), 'XPath expressions must start with "//*"')
+    assert(expression.startsWith('/'), 'XPath expressions must start with "/"')
 
     return function (
       this: Pick<IReadonlyContext, 'document'>

@@ -10,7 +10,7 @@ describe('xpath', () => {
       document.body.innerHTML = '<div id="test"></div>'
       const node = getBySelector('body > div')
 
-      const match = xpath('//*[@id="test"]')
+      const match = xpath('//div[@id="test"]')
       const result = match.call(context, node)
 
       expect(result).toBe(true)
@@ -23,7 +23,7 @@ describe('xpath', () => {
       document.body.innerHTML = '<div></div>'
       const node = getBySelector('body > div')
 
-      const match = xpath('//*[@id="test"]')
+      const match = xpath('//div[@id="test"]')
       const result = match.call(context, node)
 
       expect(result).toBe(false)

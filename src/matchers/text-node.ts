@@ -21,16 +21,20 @@ export function textNode(...args:
 | [...matchers: Array<ITerminalMatcher<Node>>]
 ) {
   if (isArray(args[0])) {
-    const [strings, ...values] =
-      args as [strings: TemplateStringsArray, ...values: string[]]
+    const [strings, ...values] = args as [
+      strings: TemplateStringsArray
+    , ...values: string[]
+    ]
     const name = concat(strings, ...values)
 
     return (...matchers: Array<ITerminalMatcher<Node>>) => textNode(name, ...matchers)
   }
 
   if (isString(args[0])) {
-    const [name, ...matchers] =
-      args as [name: string, ...matchers: Array<ITerminalMatcher<Node>>]
+    const [name, ...matchers] = args as [
+      name: string
+    , ...matchers: Array<ITerminalMatcher<Node>>
+    ]
 
     return function (this: IReadonlyContext, node: Node) {
       const result = textNode(...matchers).call(this, node)

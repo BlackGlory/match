@@ -2,13 +2,7 @@ import { describe, it, expect, vi } from 'vitest'
 import { parseNodes } from 'extra-dom'
 import { match } from '@src/match.js'
 
-describe(`
-  match(
-    this: void | Document
-  , node: Node
-  , ...matchers: Array<IMatcher<Node>>
-  ): { [name: string]: Node | Node[] } | null
-`, () => {
+describe('match', () => {
   describe('match', () => {
     it('return { [name: string]: Node | Node[] }', () => {
       const matcher1 = vi.fn().mockReturnValue(true)

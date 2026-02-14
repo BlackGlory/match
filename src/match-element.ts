@@ -2,13 +2,17 @@ import { isDocument } from 'extra-dom'
 import { IMatcher, IContext } from './types.js'
 import { matchOneByOne } from '@utils/match-one-by-one.js'
 import { nextElementSibling } from '@utils/next-element-sibling.js'
+import { Arrayable } from '@blackglory/prelude'
 
 export function matchElement(
   this: void | Document
 , element: Element
 , ...matchers: Array<IMatcher<Element>>
-): { [name: string]: Node | Node[] } | null {
-  const document = isDocument(this) ? this : globalThis.document
+): Record<string, Arrayable<Node>> | null {
+  const document = isDocument(this)
+                 ? this
+                 : globalThis.document
+
   const context: IContext = {
     document
   , collection: {}

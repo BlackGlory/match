@@ -138,7 +138,7 @@ function match(
   this: void | Document
 , node: Node
 , ...matchers: Array<IMatcher<Node>>
-): { [name: string]: Node | Node[] } | null
+): Record<string, Arrayable<Node>> | null
 ```
 
 ### matchElement
@@ -147,7 +147,7 @@ function matchElement(
   this: void | Document
 , element: Element
 , ...matchers: Array<IMatcher<Element>>
-): { [name: string]: Node | Node[] } | null
+): Record<string, Arrayable<Node>> | null
 ```
 
 ### Matchers
@@ -187,7 +187,10 @@ function element(
   strings: TemplateStringsArray
 , ...values: string[]
 ): (
-  ...matchers: Array<INestedMatcher<Element> | ITerminalMatcher<Element>>
+  ...matchers: Array<
+  | INestedMatcher<Element>
+  | ITerminalMatcher<Element>
+  >
 ) => INestedMatcher<Node>
 function element(
   name: string

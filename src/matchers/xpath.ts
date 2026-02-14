@@ -1,12 +1,12 @@
 import { ITerminalMatcher, IReadonlyContext } from '@src/types.js'
-import { isString } from '@blackglory/prelude'
+import { isntNull, isString } from '@blackglory/prelude'
 import { concat } from 'extra-tags'
 import { assert } from '@blackglory/prelude'
 
 const UNORDERED_NODE_ITERATOR_TYPE =
   'XPathResult' in globalThis
-  ? XPathResult.UNORDERED_NODE_ITERATOR_TYPE
-  : 4
+? XPathResult.UNORDERED_NODE_ITERATOR_TYPE
+: 4
 
 export function xpath(
   strings: TemplateStringsArray
@@ -46,8 +46,8 @@ function xpathMatches(document: Document, expression: string, node: Node): boole
   , null
   )
 
-  let value
-  while ((value = iterator.iterateNext()) !== null) {
+  let value: Node | null
+  while (value = iterator.iterateNext(), isntNull(value)) {
     if (value === node) return true
   }
   return false

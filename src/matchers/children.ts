@@ -1,3 +1,4 @@
+import { isEmptyArray } from '@blackglory/prelude'
 import { IMatcher, INestedMatcher, IReadonlyContext } from '@src/types.js'
 import { matchOneByOne } from '@utils/match-one-by-one.js'
 import { mergeInPlace } from '@utils/merge-in-place.js'
@@ -8,7 +9,7 @@ export function children(
 ): INestedMatcher<Element> {
   return function (this: IReadonlyContext, element: Element) {
     // 空matchers意味着"children应该为空".
-    if (matchers.length === 0) {
+    if (isEmptyArray(matchers)) {
       return element.children.length === 0
     }
 

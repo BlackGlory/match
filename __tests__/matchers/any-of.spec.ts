@@ -3,7 +3,7 @@ import { parseNodes } from 'extra-dom'
 import { anyOf } from '@matchers/any-of.js'
 import { createContext } from '@test/utils.js'
 
-describe('anyOf<T extends Node>(...matchers: INestedMatcher<T> | ITerminalMatcher<T>): INestedMatcher<T>', () => {
+describe('anyOf', () => {
   describe('match', () => {
     it('return true', () => {
       const context = createContext()

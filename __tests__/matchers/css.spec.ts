@@ -3,7 +3,7 @@ import { parseNodes } from 'extra-dom'
 import { css } from '@matchers/css.js'
 import { createContext } from '@test/utils.js'
 
-describe('css(selector: string): ITerminalMatcher<Element>', () => {
+describe('css', () => {
   describe('match', () => {
     it('return true', () => {
       const context = createContext()

@@ -4,13 +4,7 @@ import { multiple } from '@matchers/multiple.js'
 import { createContext } from '@test/utils.js'
 import { toArray } from '@blackglory/prelude'
 
-describe(`
-  multiple<T extends Node>(
-    range: [min: number, max: number]
-  , matcher: INestedMatcher<T> | ITerminalMatcher<T>
-  , options?:  IMultipleOptions
-  ): ISkipMatcher<T>
-`, () => {
+describe('multiple', () => {
   describe('greedy = true', () => {
     test('edge: min = 0, max = Infinity', () => {
       const context = createContext()

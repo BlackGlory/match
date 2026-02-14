@@ -3,7 +3,7 @@ import { parseNodes } from 'extra-dom'
 import { textContentMatches } from '@matchers/text-content-matches.js'
 import { createContext } from '@test/utils.js'
 
-describe('textContentMatches(pattern: RegExp): ITerminalMatcher<Node>', () => {
+describe('textContentMatches', () => {
   describe('trim', () => {
     describe('trim = true', () => {
       describe('match', () => {

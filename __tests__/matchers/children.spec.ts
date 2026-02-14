@@ -3,7 +3,7 @@ import { parseNodes } from 'extra-dom'
 import { children } from '@matchers/children.js'
 import { createContext } from '@test/utils.js'
 
-describe('children(...matchers: Array<IMatcher<Element>>): INestedMatcher<Element>', () => {
+describe('children', () => {
   describe('matchers.length = 0', () => {
     describe('match', () => {
       it('return true', () => {

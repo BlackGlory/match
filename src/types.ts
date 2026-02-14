@@ -1,8 +1,10 @@
+import { Arrayable } from '@blackglory/prelude'
+
 export interface IContext {
   readonly document: Document
   readonly next: (node: Node, distance?: number) => Node | undefined
   readonly collection: {
-    [name: string]: Node | Node[]
+    [name: string]: Arrayable<Node>
   }
 }
 
@@ -10,7 +12,7 @@ export interface IReadonlyContext {
   readonly document: Document
   readonly next: (node: Node, distance?: number) => Node | undefined
   readonly collection: {
-    readonly [name: string]: Node | Node[]
+    readonly [name: string]: Arrayable<Node>
   }
 }
 
@@ -19,8 +21,9 @@ export type IMatcher<T extends Node> =
 | INestedMatcher<T>
 | ISkipMatcher<T>
 | (
-    <T extends Node>(this: IReadonlyContext, node: T) =>
-      boolean | number | Iterable<number>
+    <T extends Node>(
+      this: IReadonlyContext, node: T
+    ) => boolean | number | Iterable<number>
   )
 
 export type INestedMatcher<T extends Node> = (

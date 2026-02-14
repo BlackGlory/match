@@ -1,12 +1,12 @@
 import { IMatcher, IReadonlyContext } from '@src/types.js'
-import { isBoolean, isNumber, isIterable } from '@blackglory/prelude'
+import { isBoolean, isNumber, isIterable, isEmptyArray } from '@blackglory/prelude'
 
 export function matchOneByOne<T extends Node>(
   context: IReadonlyContext
 , source: T | null
 , ...matchers: Array<IMatcher<T>>
 ): boolean {
-  if (matchers.length === 0) return true
+  if (isEmptyArray(matchers)) return true
   if (!source) return false
 
   const [matcher, ...otherMatchers] = matchers

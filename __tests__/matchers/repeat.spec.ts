@@ -3,12 +3,7 @@ import { parseNodes } from 'extra-dom'
 import { repeat } from '@matchers/repeat.js'
 import { createContext } from '@test/utils.js'
 
-describe(`
-  repeat<T extends Node>(
-    number: number
-  , matcher: INestedMatcher<T> | ITerminalMatcher<T>
-  ): ISkipMatcher<T>
-`, () => {
+describe('repeat', () => {
   describe('match', () => {
     it('return number', () => {
       const context = createContext()

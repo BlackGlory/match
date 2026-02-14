@@ -3,7 +3,7 @@ import { parseNodes } from 'extra-dom'
 import { textContentIncludes } from '@matchers/text-content-includes.js'
 import { createContext } from '@test/utils.js'
 
-describe('textContentIncludes(text: string): ITerminalMatcher<Node>', () => {
+describe('textContentIncludes', () => {
   describe('trim', () => {
     describe('trim = true', () => {
       describe('match', () => {

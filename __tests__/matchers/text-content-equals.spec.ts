@@ -3,7 +3,7 @@ import { parseNodes } from 'extra-dom'
 import { textContentEquals } from '@matchers/text-content-equals.js'
 import { createContext } from '@test/utils.js'
 
-describe('textContentEquals(text: string, options: ITextContentEqualsOptions): ITerminalMatcher<Node>', () => {
+describe('textContentEquals', () => {
   describe('trim', () => {
     describe('trim = true', () => {
       describe('match', () => {

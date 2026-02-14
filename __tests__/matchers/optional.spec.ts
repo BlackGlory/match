@@ -4,7 +4,7 @@ import { optional } from '@matchers/optional.js'
 import { createContext } from '@test/utils.js'
 import { toArray } from '@blackglory/prelude'
 
-describe('optional<T extends Node>(matcher: INestedMatcher<T> | ITerminalMatcher<T>): ISkipMatcher<T> ', () => {
+describe('optional', () => {
   describe('match', () => {
     it('return Iterable<number>', () => {
       const context = createContext()

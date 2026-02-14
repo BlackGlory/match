@@ -3,12 +3,7 @@ import { parseNodes } from 'extra-dom'
 import { tap } from '@matchers/tap.js'
 import { createContext } from '@test/utils.js'
 
-describe(`
-  tap<T extends Node, U extends IMatcher<T>>(
-    matcher: U
-  , callback: (value: ReturnType<U>) => void
-  ): U
-`, () => {
+describe('tap', () => {
   it('returns the result of the matcher', () => {
     const context = createContext()
     const value = false

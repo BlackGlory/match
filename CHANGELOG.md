@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/BlackGlory/match/compare/v0.4.0...v0.4.1) (2026-02-14)
+
+
+### Features
+
+* **xpath:** relax the expression assertion ([54be303](https://github.com/BlackGlory/match/commit/54be303bac0016483d40fd0d115576fa4049385c))
+
 ## [0.4.0](https://github.com/BlackGlory/match/compare/v0.3.6...v0.4.0) (2026-01-14)
 
 
